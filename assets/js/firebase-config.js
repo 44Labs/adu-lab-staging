@@ -1,8 +1,9 @@
 // Firebase Configuration
-// This will be populated with actual config after Firebase project creation
+// SECURITY: API Key has been removed from source control
+// This file will be updated during deployment with restricted keys
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC1pShePpp6hV6W1xW51kjyaTWXV7LUXVY",
+    apiKey: "FIREBASE_API_KEY", // Will be replaced during deployment
     authDomain: "adu-lab-prod.firebaseapp.com",
     projectId: "adu-lab-prod",
     storageBucket: "adu-lab-prod.firebasestorage.app",
