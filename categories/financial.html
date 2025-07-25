@@ -1,0 +1,679 @@
+<!-- Category Tabs -->
+<div class="report-category-tabs">
+    <a href="#" class="report-category-tab" data-category="summary">Summary</a>
+    <a href="#" class="report-category-tab active" data-category="financial">Financial</a>
+    <a href="#" class="report-category-tab" data-category="zoning">Zoning</a>
+    <a href="#" class="report-category-tab" data-category="site">Site</a>
+    <a href="#" class="report-category-tab" data-category="design">Design</a>
+    <a href="#" class="report-category-tab" data-category="timeline">Timeline</a>
+    <a href="#" class="report-category-tab" data-category="goals">Goals</a>
+    <a href="#" class="report-category-tab" data-category="impact">Impact</a>
+    <a href="#" class="report-category-tab" data-category="next-steps">Next Steps</a>
+</div>
+
+<!-- FINANCIAL CATEGORY (APPROVED) -->
+<div class="report-category-content" data-category-id="financial">
+    <div class="report-layout">
+        <nav class="report-nav-rail">
+            <a href="#financial-summary" class="report-nav-link active">
+                <span class="material-icons">paid</span>
+                <span class="label">Summary</span>
+            </a>
+            <a href="#financial-funding" class="report-nav-link">
+                <span class="material-icons">account_balance</span>
+                <span class="label">Funding</span>
+            </a>
+            <a href="#financial-roi" class="report-nav-link">
+                <span class="material-icons">trending_up</span>
+                <span class="label">ROI</span>
+            </a>
+            <a href="#financial-benchmarks" class="report-nav-link">
+                <span class="material-icons">leaderboard</span>
+                <span class="label">Benchmarks</span>
+            </a>
+            <a href="#financial-fees" class="report-nav-link">
+                <span class="material-icons">receipt_long</span>
+                <span class="label">Fees</span>
+            </a>
+            <a href="#financial-scenarios" class="report-nav-link">
+                <span class="material-icons">build_circle</span>
+                <span class="label">Scenarios</span>
+            </a>
+        </nav>
+        
+        <div class="report-content-area">
+            <!-- Cost Summary Section -->
+            <section id="financial-summary" class="report-section">
+                <div class="card">
+                    <h4 class="card-title">Cost Summary</h4>
+                    
+                    <!-- Cost Range Cards -->
+                    <div class="cost-range-container animate-in">
+                        <div class="cost-card">
+                            <div class="confidence-indicator"></div>
+                            <div class="cost-card-label">Conservative</div>
+                            <div class="cost-card-amount">$180,000</div>
+                            <div class="cost-card-description">Basic finishes, standard features</div>
+                        </div>
+                        <div class="cost-card active">
+                            <div class="confidence-indicator"></div>
+                            <div class="cost-card-label">Recommended</div>
+                            <div class="cost-card-amount">$210,000</div>
+                            <div class="cost-card-description">Quality finishes, smart features</div>
+                        </div>
+                        <div class="cost-card">
+                            <div class="confidence-indicator"></div>
+                            <div class="cost-card-label">Premium</div>
+                            <div class="cost-card-amount">$240,000</div>
+                            <div class="cost-card-description">High-end finishes, luxury features</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Funding Options Section -->
+            <section id="financial-funding" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">account_balance</span>
+                            Funding Options
+                        </h2>
+                    </div>
+                    
+                    <div class="funding-grid">
+                        <div class="funding-card">
+                            <div class="funding-icon">🏦</div>
+                            <h3 class="funding-title">Home Equity Line of Credit</h3>
+                            <div class="funding-details">
+                                <div class="funding-stat">
+                                    <span class="stat-label">Interest Rate</span>
+                                    <span class="stat-value">7.5-8.5%</span>
+                                </div>
+                                <div class="funding-stat">
+                                    <span class="stat-label">Loan Amount</span>
+                                    <span class="stat-value">Up to $250k</span>
+                                </div>
+                                <div class="funding-stat">
+                                    <span class="stat-label">Timeline</span>
+                                    <span class="stat-value">2-3 weeks</span>
+                                </div>
+                            </div>
+                            <div class="funding-pros">
+                                <div class="pro">✓ Flexible drawdown</div>
+                                <div class="pro">✓ Interest-only payments</div>
+                                <div class="pro">✓ Tax deductible</div>
+                            </div>
+                        </div>
+                        
+                        <div class="funding-card recommended">
+                            <span class="recommended-badge">RECOMMENDED</span>
+                            <div class="funding-icon">🏗️</div>
+                            <h3 class="funding-title">Construction Loan</h3>
+                            <div class="funding-details">
+                                <div class="funding-stat">
+                                    <span class="stat-label">Interest Rate</span>
+                                    <span class="stat-value">8.0-9.0%</span>
+                                </div>
+                                <div class="funding-stat">
+                                    <span class="stat-label">Loan Amount</span>
+                                    <span class="stat-value">Up to 90% of cost</span>
+                                </div>
+                                <div class="funding-stat">
+                                    <span class="stat-label">Timeline</span>
+                                    <span class="stat-value">3-4 weeks</span>
+                                </div>
+                            </div>
+                            <div class="funding-pros">
+                                <div class="pro">✓ Designed for ADUs</div>
+                                <div class="pro">✓ Draw as you build</div>
+                                <div class="pro">✓ Converts to mortgage</div>
+                            </div>
+                        </div>
+                        
+                        <div class="funding-card">
+                            <div class="funding-icon">💰</div>
+                            <h3 class="funding-title">Cash-Out Refinance</h3>
+                            <div class="funding-details">
+                                <div class="funding-stat">
+                                    <span class="stat-label">Interest Rate</span>
+                                    <span class="stat-value">6.5-7.5%</span>
+                                </div>
+                                <div class="funding-stat">
+                                    <span class="stat-label">Loan Amount</span>
+                                    <span class="stat-value">Up to 80% LTV</span>
+                                </div>
+                                <div class="funding-stat">
+                                    <span class="stat-label">Timeline</span>
+                                    <span class="stat-value">4-6 weeks</span>
+                                </div>
+                            </div>
+                            <div class="funding-pros">
+                                <div class="pro">✓ Lower rates</div>
+                                <div class="pro">✓ Fixed payments</div>
+                                <div class="pro">✓ Long term</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="funding-calculator">
+                        <h3 style="font-weight: 600; margin-bottom: 1rem;">Monthly Payment Calculator</h3>
+                        <div class="calc-inputs">
+                            <div class="calc-input">
+                                <label>Loan Amount</label>
+                                <input type="range" min="100000" max="300000" value="210000" id="loanAmount">
+                                <span class="calc-value">$210,000</span>
+                            </div>
+                            <div class="calc-input">
+                                <label>Interest Rate</label>
+                                <input type="range" min="5" max="10" step="0.1" value="7.5" id="interestRate">
+                                <span class="calc-value">7.5%</span>
+                            </div>
+                            <div class="calc-input">
+                                <label>Loan Term</label>
+                                <select id="loanTerm">
+                                    <option value="15">15 years</option>
+                                    <option value="20" selected>20 years</option>
+                                    <option value="30">30 years</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="calc-result">
+                            <span class="result-label">Monthly Payment</span>
+                            <span class="result-value">$1,692</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROI Preview Section -->
+            <section id="financial-roi" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">trending_up</span>
+                            Return on Investment
+                        </h2>
+                    </div>
+                    
+                    <div class="roi-dashboard">
+                        <div class="roi-metric">
+                            <div class="metric-icon">📈</div>
+                            <div class="metric-content">
+                                <div class="metric-label">Payback Period</div>
+                                <div class="metric-value">7.2 years</div>
+                                <div class="metric-subtext">Through rental income</div>
+                            </div>
+                        </div>
+                        
+                        <div class="roi-metric">
+                            <div class="metric-icon">🏠</div>
+                            <div class="metric-content">
+                                <div class="metric-label">Property Value Increase</div>
+                                <div class="metric-value">+$85,000</div>
+                                <div class="metric-subtext">Immediate equity gain</div>
+                            </div>
+                        </div>
+                        
+                        <div class="roi-metric">
+                            <div class="metric-icon">💵</div>
+                            <div class="metric-content">
+                                <div class="metric-label">Monthly Cash Flow</div>
+                                <div class="metric-value">$650/mo</div>
+                                <div class="metric-subtext">After expenses</div>
+                            </div>
+                        </div>
+                        
+                        <div class="roi-metric">
+                            <div class="metric-icon">📊</div>
+                            <div class="metric-content">
+                                <div class="metric-label">10-Year ROI</div>
+                                <div class="metric-value">142%</div>
+                                <div class="metric-subtext">Total return</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ROI Chart -->
+                    <div class="roi-chart-container">
+                        <h3 style="font-weight: 600; margin-bottom: 1rem;">Cumulative Returns Over Time</h3>
+                        <div class="roi-chart">
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 20%;"><span>Year 1</span></div>
+                                <div class="chart-bar" style="height: 35%;"><span>Year 3</span></div>
+                                <div class="chart-bar" style="height: 55%;"><span>Year 5</span></div>
+                                <div class="chart-bar" style="height: 80%;"><span>Year 7</span></div>
+                                <div class="chart-bar" style="height: 100%;"><span>Year 10</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cost Benchmarks Section -->
+            <section id="financial-benchmarks" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">leaderboard</span>
+                            Regional Cost Benchmarks
+                        </h2>
+                    </div>
+                    
+                    <div class="benchmark-comparison">
+                        <div class="location-card your-project">
+                            <div class="location-badge">YOUR PROJECT</div>
+                            <h3 class="location-name">Salem, MA</h3>
+                            <div class="location-stats">
+                                <div class="stat">
+                                    <span class="label">Cost per sq ft</span>
+                                    <span class="value">$247</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="label">Total estimate</span>
+                                    <span class="value">$210,000</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="label">Market position</span>
+                                    <span class="value">Mid-range</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="location-card">
+                            <h3 class="location-name">Boston Metro</h3>
+                            <div class="location-stats">
+                                <div class="stat">
+                                    <span class="label">Cost per sq ft</span>
+                                    <span class="value">$285</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="label">Average ADU</span>
+                                    <span class="value">$242,000</span>
+                                </div>
+                                <div class="stat comparison higher">+15% higher</div>
+                            </div>
+                        </div>
+                        
+                        <div class="location-card">
+                            <h3 class="location-name">North Shore Avg</h3>
+                            <div class="location-stats">
+                                <div class="stat">
+                                    <span class="label">Cost per sq ft</span>
+                                    <span class="value">$235</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="label">Average ADU</span>
+                                    <span class="value">$200,000</span>
+                                </div>
+                                <div class="stat comparison lower">-5% lower</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cost-breakdown-detail">
+                        <h3 style="font-weight: 600; margin-bottom: 1rem;">Detailed Cost Breakdown</h3>
+                        <div class="breakdown-items">
+                            <div class="breakdown-item">
+                                <span class="item-label">Site Preparation</span>
+                                <span class="item-value">$12,000 - $18,000</span>
+                                <div class="item-bar" style="width: 8%;"></div>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="item-label">Foundation</span>
+                                <span class="item-value">$15,000 - $22,000</span>
+                                <div class="item-bar" style="width: 10%;"></div>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="item-label">Framing & Structure</span>
+                                <span class="item-value">$35,000 - $45,000</span>
+                                <div class="item-bar" style="width: 20%;"></div>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="item-label">Roofing</span>
+                                <span class="item-value">$8,000 - $12,000</span>
+                                <div class="item-bar" style="width: 5%;"></div>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="item-label">Electrical</span>
+                                <span class="item-value">$12,000 - $16,000</span>
+                                <div class="item-bar" style="width: 7%;"></div>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="item-label">Plumbing</span>
+                                <span class="item-value">$10,000 - $14,000</span>
+                                <div class="item-bar" style="width: 6%;"></div>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="item-label">HVAC</span>
+                                <span class="item-value">$8,000 - $12,000</span>
+                                <div class="item-bar" style="width: 5%;"></div>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="item-label">Insulation & Drywall</span>
+                                <span class="item-value">$15,000 - $20,000</span>
+                                <div class="item-bar" style="width: 9%;"></div>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="item-label">Interior Finishes</span>
+                                <span class="item-value">$30,000 - $40,000</span>
+                                <div class="item-bar" style="width: 18%;"></div>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="item-label">Exterior Finishes</span>
+                                <span class="item-value">$20,000 - $28,000</span>
+                                <div class="item-bar" style="width: 12%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Soft Costs & Fees Section -->
+            <section id="financial-fees" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">receipt_long</span>
+                            Soft Costs & Fees
+                        </h2>
+                    </div>
+                    
+                    <div class="fees-overview">
+                        <div class="fees-summary">
+                            <div class="summary-card">
+                                <h3>Total Soft Costs</h3>
+                                <div class="summary-amount">$28,000 - $35,000</div>
+                                <div class="summary-percent">13-17% of total project</div>
+                            </div>
+                        </div>
+                        
+                        <div class="fee-categories">
+                            <div class="fee-category">
+                                <h3 class="category-title">
+                                    <span class="material-icons">architecture</span>
+                                    Design & Engineering
+                                </h3>
+                                <div class="fee-items">
+                                    <div class="fee-item">
+                                        <span class="fee-name">Architectural Design</span>
+                                        <span class="fee-amount">$8,000 - $12,000</span>
+                                    </div>
+                                    <div class="fee-item">
+                                        <span class="fee-name">Structural Engineering</span>
+                                        <span class="fee-amount">$2,000 - $3,000</span>
+                                    </div>
+                                    <div class="fee-item">
+                                        <span class="fee-name">Title 24 Energy Calc</span>
+                                        <span class="fee-amount">$500 - $800</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="fee-category">
+                                <h3 class="category-title">
+                                    <span class="material-icons">gavel</span>
+                                    Permits & Fees
+                                </h3>
+                                <div class="fee-items">
+                                    <div class="fee-item">
+                                        <span class="fee-name">Building Permit</span>
+                                        <span class="fee-amount">$3,500 - $4,500</span>
+                                    </div>
+                                    <div class="fee-item">
+                                        <span class="fee-name">Plan Check</span>
+                                        <span class="fee-amount">$1,500 - $2,000</span>
+                                    </div>
+                                    <div class="fee-item">
+                                        <span class="fee-name">Impact Fees</span>
+                                        <span class="fee-amount">$2,000 - $3,000</span>
+                                    </div>
+                                    <div class="fee-item">
+                                        <span class="fee-name">Utility Connections</span>
+                                        <span class="fee-amount">$1,500 - $2,500</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="fee-category">
+                                <h3 class="category-title">
+                                    <span class="material-icons">miscellaneous_services</span>
+                                    Other Professional
+                                </h3>
+                                <div class="fee-items">
+                                    <div class="fee-item">
+                                        <span class="fee-name">Project Management</span>
+                                        <span class="fee-amount">$3,000 - $4,000</span>
+                                    </div>
+                                    <div class="fee-item">
+                                        <span class="fee-name">Geotechnical Report</span>
+                                        <span class="fee-amount">$1,500 - $2,000</span>
+                                    </div>
+                                    <div class="fee-item">
+                                        <span class="fee-name">Survey</span>
+                                        <span class="fee-amount">$800 - $1,200</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fee-timeline">
+                        <h3 style="font-weight: 600; margin-bottom: 1rem;">When Fees Are Due</h3>
+                        <div class="timeline-items">
+                            <div class="timeline-item">
+                                <div class="timeline-phase">Design Phase</div>
+                                <div class="timeline-fees">Architectural, Engineering</div>
+                                <div class="timeline-amount">$10,000 - $15,000</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-phase">Permit Phase</div>
+                                <div class="timeline-fees">City fees, Plan check</div>
+                                <div class="timeline-amount">$8,500 - $12,000</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-phase">Construction Start</div>
+                                <div class="timeline-fees">Utility connections</div>
+                                <div class="timeline-amount">$1,500 - $2,500</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-phase">Throughout</div>
+                                <div class="timeline-fees">Management, contingency</div>
+                                <div class="timeline-amount">$8,000 - $10,500</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upgrade Scenarios Section -->
+            <section id="financial-scenarios" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">build_circle</span>
+                            Upgrade Scenarios
+                        </h2>
+                    </div>
+                    
+                    <div class="scenarios-comparison">
+                        <div class="scenario-card basic">
+                            <div class="scenario-header">
+                                <h3 class="scenario-title">Essential Build</h3>
+                                <div class="scenario-price">$180,000</div>
+                            </div>
+                            <div class="scenario-features">
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Standard finishes throughout
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Basic appliance package
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Laminate countertops
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Vinyl plank flooring
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Standard HVAC system
+                                </div>
+                            </div>
+                            <div class="scenario-roi">
+                                <div class="roi-stat">
+                                    <span class="label">Monthly Rent</span>
+                                    <span class="value">$1,800</span>
+                                </div>
+                                <div class="roi-stat">
+                                    <span class="label">Payback</span>
+                                    <span class="value">8.3 years</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="scenario-card recommended">
+                            <span class="recommended-badge">BEST VALUE</span>
+                            <div class="scenario-header">
+                                <h3 class="scenario-title">Smart Build</h3>
+                                <div class="scenario-price">$210,000</div>
+                            </div>
+                            <div class="scenario-features">
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Quality finishes
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Energy Star appliances
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Quartz countertops
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Hardwood flooring
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Smart home features
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Solar ready
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    EV charger outlet
+                                </div>
+                            </div>
+                            <div class="scenario-roi">
+                                <div class="roi-stat">
+                                    <span class="label">Monthly Rent</span>
+                                    <span class="value">$2,100</span>
+                                </div>
+                                <div class="roi-stat">
+                                    <span class="label">Payback</span>
+                                    <span class="value">7.2 years</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="scenario-card premium">
+                            <div class="scenario-header">
+                                <h3 class="scenario-title">Premium Build</h3>
+                                <div class="scenario-price">$240,000</div>
+                            </div>
+                            <div class="scenario-features">
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Luxury finishes
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Premium appliances
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Natural stone counters
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Wide plank hardwood
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Full home automation
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Solar panels included
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Heated floors
+                                </div>
+                                <div class="feature">
+                                    <span class="material-icons">check</span>
+                                    Custom cabinetry
+                                </div>
+                            </div>
+                            <div class="scenario-roi">
+                                <div class="roi-stat">
+                                    <span class="label">Monthly Rent</span>
+                                    <span class="value">$2,400</span>
+                                </div>
+                                <div class="roi-stat">
+                                    <span class="label">Payback</span>
+                                    <span class="value">8.0 years</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="upgrade-impact">
+                        <h3 style="font-weight: 600; margin-bottom: 1rem;">Upgrade Impact Analysis</h3>
+                        <div class="impact-grid">
+                            <div class="impact-item">
+                                <h4>Solar Panels (+$15,000)</h4>
+                                <p>Save $150/month on utilities, increase property value by $20,000</p>
+                            </div>
+                            <div class="impact-item">
+                                <h4>Premium Kitchen (+$8,000)</h4>
+                                <p>Add $150/month in rental value, faster tenant placement</p>
+                            </div>
+                            <div class="impact-item">
+                                <h4>Smart Home Package (+$5,000)</h4>
+                                <p>Attract tech-savvy tenants, command 5-10% premium</p>
+                            </div>
+                            <div class="impact-item">
+                                <h4>Covered Parking (+$12,000)</h4>
+                                <p>Add $100/month in rent, protect vehicles from weather</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-navigation">
+        <button class="bottom-nav-btn" onclick="switchCategory('financial', 'prev')">
+            <span class="material-icons">arrow_back</span>
+            Previous Category
+        </button>
+        <button class="bottom-nav-btn center" onclick="scrollToTop()">
+            <span class="material-icons">arrow_upward</span>
+            Back to Top
+        </button>
+        <button class="bottom-nav-btn" onclick="switchCategory('zoning', 'next')">
+            Next Category
+            <span class="material-icons">arrow_forward</span>
+        </button>
+    </div>
+</div>

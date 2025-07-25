@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ADU Lab</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 24px;
+            gap: 24px;
+            background: var(--background);
+        }
+        
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 8px;
+            flex-shrink: 0;
+        }
+        
+        .main-nav {
+            display: flex;
+            align-items: center;
+            margin-left: 24px;
+            flex-grow: 1;
+            gap: 4px;
+        }
+        
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            background: var(--background);
+            color: var(--text-primary);
+        }
+        
+        .nav-link.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .nav-link.restricted {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 8px;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .pro-badge {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: var(--text-primary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-left: -8px;
+        }
+        
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .assessments-list {
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .assessment-item {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .assessment-item:hover {
+            background: var(--background);
+        }
+        
+        .assessment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+        
+        .assessment-address {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+        
+        .assessment-score {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .score-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-weight: 600;
+        }
+        
+        .assessment-meta {
+            display: flex;
+            gap: 24px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 48px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state .material-icons {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <div class="logo-icon">AL</div>
+                ADU Lab
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="nav-link" data-page="dash" data-access="pro">Dash</a>
+                <a href="#" class="nav-link" data-page="studio" data-access="pro">Studio</a>
+                <a href="#" class="nav-link" data-page="lens" data-access="pro">Lens</a>
+                <a href="#" class="nav-link active" data-page="hub">Hub</a>
+                <a href="#" class="nav-link" data-page="learn" data-access="pro">Learn</a>
+            </nav>
+            <div class="header-actions">
+                <span class="material-icons">search</span>
+                <span class="material-icons">notifications</span>
+                <span class="material-icons">settings</span>
+                <div class="user-avatar" id="user-avatar">U</div>
+                <span class="pro-badge" style="display: none;">PRO+</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div id="dashboard-content">
+                <h1>Your ADU Projects</h1>
+                
+                <!-- Stats Grid -->
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Assessments</div>
+                        <div class="stat-value" id="total-assessments">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Average SPAR Score</div>
+                        <div class="stat-value" id="avg-score">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Active Projects</div>
+                        <div class="stat-value" id="active-projects">0</div>
+                    </div>
+                </div>
+
+                <!-- Assessments List -->
+                <h2 style="margin-top: 48px; margin-bottom: 24px;">Recent Assessments</h2>
+                <div class="assessments-list" id="assessments-list">
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading your assessments...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase Config -->
+    <script src="/assets/js/firebase-config.js"></script>
+    
+    <script>
+        // Check authentication
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                window.location.href = '/sign-in.html';
+                return;
+            }
+
+            // Update user avatar
+            const avatar = document.getElementById('user-avatar');
+            if (user.photoURL) {
+                avatar.style.backgroundImage = `url(${user.photoURL})`;
+                avatar.style.backgroundSize = 'cover';
+                avatar.textContent = '';
+            } else {
+                avatar.textContent = user.email ? user.email[0].toUpperCase() : 'U';
+            }
+
+            // Load user data
+            loadUserData(user.uid);
+        });
+
+        async function loadUserData(userId) {
+            try {
+                // Get user's assessments
+                const assessmentsQuery = await db.collection('assessments')
+                    .where('userId', '==', userId)
+                    .orderBy('createdAt', 'desc')
+                    .limit(10)
+                    .get();
+
+                const assessments = [];
+                let totalScore = 0;
+                let scoreCount = 0;
+
+                assessmentsQuery.forEach(doc => {
+                    const data = doc.data();
+                    assessments.push({ id: doc.id, ...data });
+                    if (data.sparScore?.total) {
+                        totalScore += data.sparScore.total;
+                        scoreCount++;
+                    }
+                });
+
+                // Update stats
+                document.getElementById('total-assessments').textContent = assessments.length;
+                document.getElementById('avg-score').textContent = scoreCount > 0 
+                    ? Math.round(totalScore / scoreCount) 
+                    : '-';
+                document.getElementById('active-projects').textContent = 
+                    assessments.filter(a => a.status === 'active').length;
+
+                // Render assessments list
+                renderAssessments(assessments);
+
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                showError('Failed to load your assessments');
+            }
+        }
+
+        function renderAssessments(assessments) {
+            const container = document.getElementById('assessments-list');
+            
+            if (assessments.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <span class="material-icons">assessment</span>
+                        <h3>No assessments yet</h3>
+                        <p>Start your first ADU feasibility assessment to see it here.</p>
+                        <a href="/" class="btn btn-primary" style="margin-top: 24px;">
+                            Start Assessment
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = assessments.map(assessment => `
+                <div class="assessment-item" onclick="viewAssessment('${assessment.id}')">
+                    <div class="assessment-header">
+                        <div>
+                            <div class="assessment-address">
+                                ${assessment.answers?.property_address || 'Address not provided'}
+                            </div>
+                            <div class="assessment-meta">
+                                <span>${formatDate(assessment.createdAt)}</span>
+                                <span>${assessment.tier === 'tier1' ? 'Free Assessment' : 'Premium Report'}</span>
+                            </div>
+                        </div>
+                        <div class="assessment-score">
+                            <span class="score-badge">${assessment.sparScore?.total || '-'}</span>
+                            <span class="material-icons">arrow_forward</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewAssessment(assessmentId) {
+            window.location.href = `/assessment/${assessmentId}`;
+        }
+
+        function formatDate(timestamp) {
+            if (!timestamp) return 'Unknown date';
+            const date = timestamp.toDate();
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+        }
+
+        function showError(message) {
+            // Use the toast system from app.js
+            if (window.app) {
+                window.app.showToast(message, 'error');
+            } else {
+                alert(message);
+            }
+        }
+
+        // Handle navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Check if restricted
+                if (link.classList.contains('restricted')) {
+                    showError('This feature requires a Pro+ subscription');
+                    return;
+                }
+
+                // Update active state
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                // Handle navigation (placeholder for now)
+                const page = link.dataset.page;
+                console.log('Navigate to:', page);
+            });
+        });
+    </script>
+</body>
+</html>

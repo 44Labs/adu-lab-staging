@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADU Lab Application - Settings</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Foundational Styles & Brand Variables --- */
+        :root {
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --text-tertiary: #80868b;
+            --border-color: #dadce0;
+            --accent-primary: #1a73e8;
+            --accent-active-bg: #e8f0fe;
+            --danger-color: #d93025;
+            --danger-bg: #fce8e6;
+            --success-color: #1e8e3e;
+            --success-bg: #e6f4ea;
+            --font-sans: 'Roboto', sans-serif;
+            --font-display: 'Google Sans', sans-serif;
+            --font-brand: 'Montserrat', sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        body.dark-mode {
+            --bg-color: #202124;
+            --surface-color: #303134;
+            --text-primary: #e8eaed;
+            --text-secondary: #9aa0a6;
+            --border-color: #5f6368;
+            --accent-active-bg: #3c4043;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+            height: 100vh;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+        
+        /* --- Main App Layout (from shell) --- */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 24px;
+            gap: 24px;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px;
+            flex-shrink: 0;
+            position: relative;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+        
+        .logo {
+            font-family: var(--font-brand);
+            font-size: 20px; 
+            font-weight: 600; 
+            padding: 0 16px;
+            color: var(--text-primary);
+            transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            margin-left: 24px;
+            flex-grow: 1;
+            transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+        }
+        
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-primary);
+            background-color: var(--accent-active-bg);
+        }
+        
+        .nav-link.active {
+            color: var(--accent-primary);
+            background-color: var(--accent-active-bg);
+            font-weight: 700;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-right: 8px;
+        }
+        
+        .header-actions .material-icons {
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .header-actions .material-icons:hover {
+            color: var(--accent-primary);
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-image: url('https://placehold.co/40x40/1a73e8/ffffff?text=D');
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        /* --- Search Bar Feature --- */
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-grow: 1;
+        }
+        .search-input {
+            width: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            font-family: var(--font-sans);
+            background-color: transparent;
+            color: var(--text-primary);
+            transition: all var(--transition-speed) ease-in-out;
+        }
+        #search-close-trigger {
+            display: none;
+        }
+
+        /* Active Search State */
+        .app-header.search-active .logo,
+        .app-header.search-active .main-nav {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .app-header.search-active .search-input {
+            width: 100%;
+            max-width: 400px;
+            height: 40px;
+            padding: 8px 16px;
+            background-color: var(--accent-active-bg);
+            border-radius: 20px;
+        }
+        .app-header.search-active #search-trigger {
+            display: none;
+        }
+        .app-header.search-active #search-close-trigger {
+            display: inline-block;
+        }
+
+        /* --- Dropdown Panel Styles --- */
+        .dropdown-wrapper {
+            position: relative;
+        }
+        .dropdown-panel {
+            position: absolute;
+            top: calc(100% + 16px);
+            right: 0;
+            width: 300px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease, visibility var(--transition-speed) ease, background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+        .dropdown-panel.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* --- Notifications Feature --- */
+        .notification-dot {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            background-color: var(--danger-color);
+            border-radius: 50%;
+            border: 1.5px solid var(--surface-color);
+        }
+        #notifications-panel {
+            width: 360px;
+        }
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .notifications-header h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .notifications-body {
+            max-height: 400px;
+            overflow-y: auto;
+            position: relative;
+        }
+        .notification-item {
+            display: flex;
+            padding: 16px;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .notification-item:hover {
+            background-color: var(--accent-active-bg);
+        }
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        .notification-item.unread {
+            background-color: var(--accent-active-bg);
+        }
+        .notification-icon {
+            flex-shrink: 0;
+        }
+        .notification-icon .material-icons {
+            font-size: 20px;
+            color: var(--accent-primary);
+        }
+        .notification-content p {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .notification-content .timestamp {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .notifications-footer {
+            padding: 12px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+        .notifications-footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .notifications-empty-state {
+            display: none; /* Hidden by default */
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-secondary);
+        }
+        .notifications-empty-state .material-icons {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        /* --- Profile Dropdown --- */
+        .profile-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+        }
+        .profile-card-header .user-avatar {
+            width: 40px;
+            height: 40px;
+        }
+        .profile-card-header .user-info h4 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .profile-card-header .user-info p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .pro-badge {
+            background-color: #202124;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+        body.dark-mode .pro-badge {
+            background-color: #e8eaed;
+            color: #202124;
+        }
+
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .profile-menu-item:hover {
+            background-color: var(--accent-active-bg);
+        }
+        .profile-menu-item .material-icons, .profile-menu-item .fa-key {
+            color: var(--text-secondary);
+            font-size: 20px;
+        }
+        .profile-menu-item > div {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .profile-menu-divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 8px 0;
+        }
+
+        /* Dark Mode Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 34px;
+            height: 20px;
+        }
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--accent-primary);
+        }
+        input:checked + .slider:before {
+            transform: translateX(14px);
+        }
+
+        .main-content-area {
+            flex-grow: 1;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--surface-color);
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+
+        .page-view {
+            display: none;
+            height: 100%;
+            overflow-y: auto;
+        }
+        
+        .page-view.active {
+            display: block;
+        }
+
+        /* --- Settings Page Specific Styles --- */
+        .settings-page-layout {
+            display: flex;
+            height: 100%;
+        }
+
+        .settings-nav {
+            width: 240px;
+            flex-shrink: 0;
+            border-right: 1px solid var(--border-color);
+            padding: 24px 0;
+            transition: border-color var(--transition-speed);
+        }
+
+        .settings-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 24px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .settings-nav-link .material-icons {
+            font-size: 20px;
+        }
+
+        .settings-nav-link:hover {
+            background-color: var(--accent-active-bg);
+            color: var(--accent-primary);
+        }
+
+        .settings-nav-link.active {
+            background-color: var(--accent-active-bg);
+            color: var(--accent-primary);
+            font-weight: 700;
+            border-left-color: var(--accent-primary);
+        }
+
+        .settings-content {
+            flex-grow: 1;
+            padding: 32px 48px;
+            overflow-y: auto;
+        }
+        
+        .settings-section {
+            display: none;
+        }
+        .settings-section.active {
+            display: block;
+        }
+
+        .settings-header {
+            font-family: var(--font-display);
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .settings-subheader {
+            color: var(--text-secondary);
+            margin-top: 0;
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+        
+        .card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+        .card-header {
+            padding: 16px 24px;
+            background-color: var(--bg-color); /* Use bg-color for slight contrast */
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+        .card-header h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .card-content {
+            padding: 24px;
+        }
+        .card-footer {
+            padding: 16px 24px;
+            background-color: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: var(--font-sans);
+            transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s;
+            background-color: var(--surface-color);
+            color: var(--text-primary);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px var(--accent-active-bg);
+        }
+        .form-control[disabled] {
+            background-color: #f1f3f4;
+            cursor: not-allowed;
+        }
+        body.dark-mode .form-control[disabled] {
+             background-color: #3c4043;
+        }
+        
+        .btn { 
+            padding: 10px 24px; 
+            border: 1px solid transparent; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 500; 
+            font-size: 14px; 
+            transition: all 0.2s ease; 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: 8px; 
+        }
+        .btn-primary { background: var(--accent-primary); color: white; }
+        .btn-primary:hover { background: #1867c0; }
+        .btn-secondary { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); }
+        .btn-secondary:hover { background: var(--accent-active-bg); }
+        .btn-danger { background: transparent; color: var(--danger-color); border: 1px solid var(--border-color); }
+        .btn-danger:hover { background: var(--danger-bg); border-color: var(--danger-color); }
+        
+        .authentication-options .btn {
+            width: 100%;
+            justify-content: flex-start;
+            margin-bottom: 12px;
+        }
+        .authentication-options .fab, .authentication-options .fa-key {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .subscription-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, var(--accent-active-bg), var(--bg-color));
+            border-color: var(--accent-primary);
+            padding: 24px;
+        }
+        .plan-details h4 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            margin: 0 0 4px 0;
+        }
+        .plan-details p {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+        
+        .data-room-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: border-color var(--transition-speed);
+        }
+        .data-room-item:last-child {
+            border-bottom: none;
+        }
+        .data-room-item-info p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 24px 0;
+            transition: border-color var(--transition-speed);
+        }
+
+        /* --- Export Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: var(--surface-color);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            transform: scale(0.95);
+            transition: transform var(--transition-speed) ease;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .modal-header h3 {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: 18px;
+        }
+        .modal-header .close-button {
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        .modal-body {
+            padding: 24px;
+        }
+        .modal-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+        .modal-tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+        .modal-tab.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+        .modal-tab-content {
+            display: none;
+        }
+        .modal-tab-content.active {
+            display: block;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        .radio-group label:hover {
+            background-color: var(--accent-active-bg);
+        }
+        .radio-group input {
+            margin-right: 12px;
+        }
+
+        /* --- Avatar Upload Styles --- */
+        .personal-info-layout {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+        .personal-info-fields {
+            flex-grow: 1;
+        }
+        .profile-picture-wrapper {
+            flex-shrink: 0;
+            position: relative;
+            cursor: pointer;
+        }
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-image: url('https://placehold.co/80x80/1a73e8/ffffff?text=D');
+            background-size: cover;
+            border: 2px solid var(--border-color);
+        }
+        .profile-picture-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .profile-picture-wrapper:hover .profile-picture-overlay {
+            opacity: 1;
+        }
+
+        /* --- Toast Notification Styles --- */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: #323232;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: toast-in 0.5s ease, toast-out 0.5s ease 2.5s;
+            opacity: 0;
+        }
+        body.dark-mode .toast {
+            background-color: #e8eaed;
+            color: #202124;
+        }
+        @keyframes toast-in {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes toast-out {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">ADU Lab</div>
+            <nav class="main-nav">
+                <a href="#" class="nav-link" data-page="dash">Dash</a>
+                <a href="#" class="nav-link active" data-page="studio">Studio</a>
+                <a href="#" class="nav-link" data-page="hub">Hub</a>
+                <a href="#" class="nav-link" data-page="lens">Lens</a>
+                <a href="#" class="nav-link" data-page="learn">Learn</a>
+            </nav>
+            <div class="search-container">
+                 <input type="search" class="search-input" placeholder="Search projects, reports, or help...">
+            </div>
+            <div class="header-actions">
+                <span class="material-icons" id="search-trigger" aria-label="Open search">search</span>
+                <span class="material-icons" id="search-close-trigger" aria-label="Close search">close</span>
+                <div class="dropdown-wrapper">
+                    <div class="notification-dot"></div>
+                    <span class="material-icons" id="notification-trigger" aria-label="Open notifications">notifications</span>
+                    <div id="notifications-panel" class="dropdown-panel">
+                        <div class="notifications-header">
+                            <h3>Notifications</h3>
+                            <button id="clear-notifications-btn" class="btn-secondary" style="padding: 4px 12px; font-size: 12px;">Clear All</button>
+                        </div>
+                        <div class="notifications-body">
+                            <div class="notification-item unread">
+                                <div class="notification-icon"><span class="material-icons">description</span></div>
+                                <div class="notification-content">
+                                    <p>Your <strong>Project Navigator</strong> for "Granny's Casita" has been updated with new zoning data.</p>
+                                    <div class="timestamp">5 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon"><span class="material-icons" style="color: var(--success-color);">check_circle</span></div>
+                                <div class="notification-content">
+                                    <p>Your payment for August 2025 was successful. Your subscription is active.</p>
+                                    <div class="timestamp">2 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon"><span class="material-icons">lightbulb</span></div>
+                                <div class="notification-content">
+                                    <p><strong>New Tip:</strong> Did you know you can export your project data from the settings menu?</p>
+                                    <div class="timestamp">1 day ago</div>
+                                </div>
+                            </div>
+                            <div class="notifications-empty-state">
+                                <span class="material-icons">notifications_off</span>
+                                <p>You're all caught up!</p>
+                            </div>
+                        </div>
+                        <div class="notifications-footer">
+                            <a href="#">View All Notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown-wrapper">
+                    <div class="user-avatar" id="profile-trigger" aria-label="Open profile menu"></div>
+                    <div id="profile-panel" class="dropdown-panel">
+                        <div class="profile-card-header">
+                            <div class="user-avatar"></div>
+                            <div class="user-info">
+                                <h4>Derek J.<span class="pro-badge" id="pro-badge-close">Pro+</span></h4>
+                                <p>derek@44labs.ai</p>
+                            </div>
+                        </div>
+                        <div class="profile-menu-divider"></div>
+                        <a href="#" class="profile-menu-item" id="account-settings-trigger">
+                            <div>
+                                <span class="material-icons">settings</span>
+                                <span>Account Settings</span>
+                            </div>
+                        </a>
+                        <a href="#" class="profile-menu-item">
+                            <div>
+                                <span class="material-icons">help_outline</span>
+                                <span>Help Center</span>
+                            </div>
+                        </a>
+                        <div class="profile-menu-divider"></div>
+                        <a href="#" class="profile-menu-item">
+                             <div>
+                                <span class="material-icons">star_outline</span>
+                                <span>Upgrade Plan</span>
+                            </div>
+                        </a>
+                        <div class="profile-menu-item">
+                            <div>
+                                <span class="material-icons">dark_mode</span>
+                                <span>Dark Mode</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="dark-mode-toggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="profile-menu-divider"></div>
+                        <a href="#" class="profile-menu-item">
+                            <div>
+                                <span class="material-icons">logout</span>
+                                <span>Log Out</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content-area">
+            <!-- Placeholder Pages from Shell -->
+            <div id="dash-page" class="page-view"></div>
+            <div id="studio-page" class="page-view active"></div>
+            <div id="hub-page" class="page-view"></div>
+            <div id="lens-page" class="page-view"></div>
+            <div id="learn-page" class="page-view"></div>
+
+            <!-- New Settings Page -->
+            <div id="settings-page" class="page-view">
+                <div class="settings-page-layout">
+                    <nav class="settings-nav">
+                        <a href="#" class="settings-nav-link active" data-section="profile">
+                            <span class="material-icons">person</span> Profile
+                        </a>
+                        <a href="#" class="settings-nav-link" data-section="subscription">
+                            <span class="material-icons">credit_card</span> Subscription
+                        </a>
+                        <a href="#" class="settings-nav-link" data-section="data-room">
+                            <span class="material-icons">folder_shared</span> Data & Privacy
+                        </a>
+                    </nav>
+                    <div class="settings-content">
+                        <!-- Profile Section -->
+                        <section id="profile-section" class="settings-section active">
+                            <h2 class="settings-header">Profile Settings</h2>
+                            <p class="settings-subheader">Manage your personal information and account security.</p>
+                            
+                            <div class="card">
+                                <div class="card-header"><h3>Personal Information</h3></div>
+                                <div class="card-content">
+                                    <div class="personal-info-layout">
+                                        <div class="profile-picture-wrapper">
+                                            <div class="profile-picture"></div>
+                                            <div class="profile-picture-overlay">
+                                                <span class="material-icons">photo_camera</span>
+                                            </div>
+                                        </div>
+                                        <div class="personal-info-fields">
+                                            <div class="form-group">
+                                                <label for="fullName" class="form-label">Full Name</label>
+                                                <input type="text" id="fullName" class="form-control" value="Derek J.">
+                                            </div>
+                                            <div class="form-group" style="margin-bottom: 0;">
+                                                <label for="email" class="form-label">Email Address</label>
+                                                <input type="email" id="email" class="form-control" value="derek@44labs.ai" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header"><h3>Password</h3></div>
+                                <div class="card-content">
+                                    <div class="form-group">
+                                        <label for="currentPassword" class="form-label">Current Password</label>
+                                        <input type="password" id="currentPassword" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newPassword" class="form-label">New Password</label>
+                                        <input type="password" id="newPassword" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-primary" id="update-password-btn">Update Password</button>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header"><h3>Authentication Options</h3></div>
+                                <div class="card-content authentication-options">
+                                    <p class="settings-subheader" style="margin-bottom: 16px; font-size: 14px;">Connect your accounts for faster, more secure login.</p>
+                                    <button class="btn btn-secondary"><i class="fab fa-google"></i> Connect with Google</button>
+                                    <button class="btn btn-secondary"><i class="fas fa-key"></i> Sign in with a Passkey</button>
+                                    <button class="btn btn-secondary"><i class="fab fa-apple"></i> Connect with Apple</button>
+                                    <button class="btn btn-secondary"><i class="fab fa-facebook"></i> Connect with Facebook</button>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <!-- Subscription Section -->
+                        <section id="subscription-section" class="settings-section">
+                            <h2 class="settings-header">Subscription</h2>
+                            <p class="settings-subheader">Manage your billing and plan details.</p>
+
+                             <div class="card">
+                                <div class="card-header"><h3>Current Plan</h3></div>
+                                <div class="card-content">
+                                    <div class="subscription-card">
+                                        <div class="plan-details">
+                                            <h4>Project Navigator <span class="pro-badge">+ PRO</span></h4>
+                                            <p><strong>$59.00 per month</strong> ($44 base + $15 Pro+)</p>
+                                            <p>Next payment on August 23, 2025.</p>
+                                        </div>
+                                        <button class="btn btn-secondary">Change Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header"><h3>Payment Method</h3></div>
+                                <div class="card-content">
+                                     <div class="data-room-item">
+                                        <div class="data-room-item-info" style="display: flex; align-items: center; gap: 16px;">
+                                            <i class="fab fa-cc-visa" style="font-size: 28px; color: #1a1f71;"></i>
+                                            <div>
+                                                <p style="color: var(--text-primary); font-weight: 500;">Visa ending in 4242</p>
+                                                <p>Expires 12/2028</p>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-secondary">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header"><h3>Danger Zone</h3></div>
+                                <div class="card-content">
+                                    <div class="data-room-item">
+                                        <div class="data-room-item-info">
+                                            <p style="color: var(--text-primary); font-weight: 500;">Cancel Subscription</p>
+                                            <p>Your plan will be cancelled at the end of your billing period. You will lose access to editing and Pro+ features.</p>
+                                        </div>
+                                        <button class="btn btn-danger">Cancel Subscription</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Data & Privacy Section -->
+                        <section id="data-room-section" class="settings-section">
+                             <h2 class="settings-header">Data & Privacy</h2>
+                            <p class="settings-subheader">Manage your data, view legal documents, and export your information.</p>
+
+                            <div class="card">
+                                <div class="card-header"><h3>Data Management</h3></div>
+                                <div class="card-content">
+                                    <div class="data-room-item">
+                                        <div class="data-room-item-info">
+                                            <p style="color: var(--text-primary); font-weight: 500;">Export Project Data</p>
+                                            <p>Download all your project information.</p>
+                                        </div>
+                                        <button class="btn btn-primary" id="export-data-trigger">Download My Data</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header"><h3>Documents and Files</h3></div>
+                                <div class="card-content">
+                                     <div class="data-room-item">
+                                        <div class="data-room-item-info">
+                                            <p style="color: var(--text-primary); font-weight: 500;">All Files</p>
+                                            <p>View all Documents and Files in your account.</p>
+                                        </div>
+                                        <a href="#" class="btn btn-primary">View My Files</a>
+                                    </div>
+                                     <div class="data-room-item">
+                                        <div class="data-room-item-info">
+                                            <p style="color: var(--text-primary); font-weight: 500;">Terms of Use</p>
+                                            <p>Agreed to on July 20, 2025.</p>
+                                        </div>
+                                        <a href="#" class="btn btn-secondary">View Document</a>
+                                    </div>
+                                     <div class="data-room-item">
+                                        <div class="data-room-item-info">
+                                            <p style="color: var(--text-primary); font-weight: 500;">Privacy Policy</p>
+                                            <p>Agreed to on July 20, 2025.</p>
+                                        </div>
+                                        <a href="#" class="btn btn-secondary">View Document</a>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="card">
+                                <div class="card-header"><h3>Audit Logs</h3></div>
+                                <div class="card-content">
+                                     <div class="data-room-item">
+                                        <div class="data-room-item-info">
+                                            <p style="color: var(--text-primary); font-weight: 500;">Account Audit Log</p>
+                                            <p>A trail of important actions taken on your account.</p>
+                                        </div>
+                                        <a href="#" class="btn btn-secondary">View Log</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Export Data Modal -->
+    <div id="export-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export Project Data</h3>
+                <span class="material-icons close-button" id="export-modal-close">close</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tabs">
+                    <div class="modal-tab active" data-tab="download">Download</div>
+                    <div class="modal-tab" data-tab="share">Share</div>
+                    <div class="modal-tab" data-tab="print">Print</div>
+                </div>
+                <div id="download-tab-content" class="modal-tab-content active">
+                    <p class="settings-subheader" style="font-size: 14px; margin-bottom: 16px;">Select a format and the data you wish to download.</p>
+                    <div class="form-group">
+                        <label class="form-label">Format</label>
+                        <div class="radio-group">
+                           <label><input type="radio" name="format" value="json" checked> JSON (.json)</label>
+                           <label><input type="radio" name="format" value="csv"> CSV (.csv)</label>
+                           <label><input type="radio" name="format" value="pdf"> PDF (.pdf)</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="share-tab-content" class="modal-tab-content">
+                    <p class="settings-subheader" style="font-size: 14px; margin-bottom: 16px;">Generate a secure link to share your project report.</p>
+                     <div class="form-group">
+                        <label for="shareLink" class="form-label">Shareable Link</label>
+                        <input type="text" id="shareLink" class="form-control" value="https://adulab.com/share/p_abc123xyz" readonly>
+                    </div>
+                </div>
+                <div id="print-tab-content" class="modal-tab-content">
+                    <p class="settings-subheader" style="font-size: 14px; margin-bottom: 16px;">Prepare a print-friendly version of your full project report.</p>
+                    <p>This will open your browser's print dialog.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="export-modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="export-modal-confirm">Export Data</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const appHeader = document.querySelector('.app-header');
+            const searchTrigger = document.getElementById('search-trigger');
+            const searchCloseTrigger = document.getElementById('search-close-trigger');
+            const searchInput = document.querySelector('.search-input');
+            
+            function toggleSearch(active) {
+                appHeader.classList.toggle('search-active', active);
+                if (active) {
+                    searchInput.focus();
+                } else {
+                    searchInput.value = '';
+                }
+            }
+
+            searchTrigger.addEventListener('click', () => toggleSearch(true));
+            searchCloseTrigger.addEventListener('click', () => toggleSearch(false));
+            
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && appHeader.classList.contains('search-active')) {
+                    toggleSearch(false);
+                }
+            });
+
+            // --- Dropdown Panel Logic ---
+            function setupDropdown(triggerId, panelId) {
+                const trigger = document.getElementById(triggerId);
+                const panel = document.getElementById(panelId);
+                
+                if (!trigger || !panel) return;
+
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.querySelectorAll('.dropdown-panel.visible').forEach(p => {
+                        if (p.id !== panelId) p.classList.remove('visible');
+                    });
+                    panel.classList.toggle('visible');
+                });
+            }
+
+            setupDropdown('notification-trigger', 'notifications-panel');
+            setupDropdown('profile-trigger', 'profile-panel');
+            
+            document.getElementById('pro-badge-close').addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('profile-panel').classList.remove('visible');
+            });
+
+
+            document.addEventListener('click', (e) => {
+                document.querySelectorAll('.dropdown-panel.visible').forEach(panel => {
+                    if (!panel.parentElement.contains(e.target)) {
+                        panel.classList.remove('visible');
+                    }
+                });
+            });
+
+            // --- Dark Mode Logic ---
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+            }
+
+            darkModeToggle.addEventListener('change', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', darkModeToggle.checked ? 'enabled' : 'disabled');
+            });
+
+
+            // --- Main Application Navigation ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageViews = document.querySelectorAll('.page-view');
+            const accountSettingsTrigger = document.getElementById('account-settings-trigger');
+
+            function showPage(pageId) {
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                pageViews.forEach(pageView => pageView.classList.remove('active'));
+
+                const targetPage = document.getElementById(`${pageId}-page`);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    const targetLink = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+                    if (targetLink) {
+                        targetLink.classList.add('active');
+                    }
+                }
+                document.getElementById('profile-panel').classList.remove('visible');
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showPage(link.dataset.page);
+                });
+            });
+
+            accountSettingsTrigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage('settings');
+            });
+
+            // --- Settings Page Specific Navigation ---
+            const settingsNavLinks = document.querySelectorAll('.settings-nav-link');
+            const settingsSections = document.querySelectorAll('.settings-section');
+
+            settingsNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = link.dataset.section;
+
+                    settingsNavLinks.forEach(navLink => navLink.classList.remove('active'));
+                    link.classList.add('active');
+
+                    settingsSections.forEach(section => {
+                        section.classList.toggle('active', section.id === `${sectionId}-section`);
+                    });
+                });
+            });
+
+            // --- Export Modal Logic ---
+            const exportModal = document.getElementById('export-modal');
+            const exportTrigger = document.getElementById('export-data-trigger');
+            const exportClose = document.getElementById('export-modal-close');
+            const exportCancel = document.getElementById('export-modal-cancel');
+            const modalTabs = document.querySelectorAll('.modal-tab');
+            const modalTabContents = document.querySelectorAll('.modal-tab-content');
+            const exportConfirmBtn = document.getElementById('export-modal-confirm');
+
+            function toggleModal(visible) {
+                exportModal.classList.toggle('visible', visible);
+            }
+
+            exportTrigger.addEventListener('click', () => toggleModal(true));
+            exportClose.addEventListener('click', () => toggleModal(false));
+            exportCancel.addEventListener('click', () => toggleModal(false));
+            
+            exportModal.addEventListener('click', (e) => {
+                if (e.target === exportModal) {
+                    toggleModal(false);
+                }
+            });
+
+            modalTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    modalTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const targetContent = document.getElementById(`${tab.dataset.tab}-tab-content`);
+                    modalTabContents.forEach(c => c.classList.remove('active'));
+                    targetContent.classList.add('active');
+
+                    if (tab.dataset.tab === 'download') {
+                        exportConfirmBtn.textContent = 'Download';
+                    } else if (tab.dataset.tab === 'share') {
+                        exportConfirmBtn.textContent = 'Copy Link';
+                    } else if (tab.dataset.tab === 'print') {
+                        exportConfirmBtn.textContent = 'Print';
+                    }
+                });
+            });
+
+            // --- Toast Notification Logic ---
+            const toastContainer = document.getElementById('toast-container');
+            function showToast(message, type = 'success') {
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                const icon = type === 'success' ? 'check_circle' : 'error';
+                toast.innerHTML = `<span class="material-icons">${icon}</span> ${message}`;
+                toastContainer.appendChild(toast);
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000);
+            }
+
+            document.getElementById('save-profile-btn').addEventListener('click', () => {
+                showToast('Profile saved successfully');
+            });
+            document.getElementById('update-password-btn').addEventListener('click', () => {
+                showToast('Password updated successfully');
+            });
+
+            // --- Notification Empty State Logic ---
+            const notificationsBody = document.querySelector('.notifications-body');
+            const clearNotificationsBtn = document.getElementById('clear-notifications-btn');
+            const emptyState = document.querySelector('.notifications-empty-state');
+            const notificationsFooter = document.querySelector('.notifications-footer');
+
+            function checkNotifications() {
+                const items = notificationsBody.querySelectorAll('.notification-item');
+                if (items.length === 0) {
+                    emptyState.style.display = 'block';
+                    notificationsFooter.style.display = 'none';
+                } else {
+                    emptyState.style.display = 'none';
+                    notificationsFooter.style.display = 'block';
+                }
+            }
+
+            clearNotificationsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const items = notificationsBody.querySelectorAll('.notification-item');
+                items.forEach(item => item.remove());
+                checkNotifications();
+                showToast('Notifications cleared');
+            });
+
+            // Initial check
+            checkNotifications();
+        });
+    </script>
+</body>
+</html>

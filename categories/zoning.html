@@ -1,0 +1,634 @@
+<!-- Category Tabs -->
+<div class="report-category-tabs">
+    <a href="#" class="report-category-tab" data-category="summary">Summary</a>
+    <a href="#" class="report-category-tab" data-category="financial">Financial</a>
+    <a href="#" class="report-category-tab active" data-category="zoning">Zoning</a>
+    <a href="#" class="report-category-tab" data-category="site">Site</a>
+    <a href="#" class="report-category-tab" data-category="design">Design</a>
+    <a href="#" class="report-category-tab" data-category="timeline">Timeline</a>
+    <a href="#" class="report-category-tab" data-category="goals">Goals</a>
+    <a href="#" class="report-category-tab" data-category="impact">Impact</a>
+    <a href="#" class="report-category-tab" data-category="next-steps">Next Steps</a>
+</div>
+
+<!-- ZONING CATEGORY (APPROVED) -->
+<div class="report-category-content" data-category-id="zoning">
+    <div class="report-layout">
+        <nav class="report-nav-rail">
+            <a href="#zoning-overview" class="report-nav-link active">
+                <span class="material-icons">account_balance</span>
+                <span class="label">Overview</span>
+            </a>
+            <a href="#zoning-setbacks" class="report-nav-link">
+                <span class="material-icons">straighten</span>
+                <span class="label">Setbacks</span>
+            </a>
+            <a href="#zoning-allowed" class="report-nav-link">
+                <span class="material-icons">check_circle</span>
+                <span class="label">Allowed</span>
+            </a>
+            <a href="#zoning-process" class="report-nav-link">
+                <span class="material-icons">timeline</span>
+                <span class="label">Process</span>
+            </a>
+            <a href="#zoning-fees" class="report-nav-link">
+                <span class="material-icons">payments</span>
+                <span class="label">Fees</span>
+            </a>
+            <a href="#zoning-contacts" class="report-nav-link">
+                <span class="material-icons">contacts</span>
+                <span class="label">Contacts</span>
+            </a>
+        </nav>
+        
+        <div class="report-content-area">
+            <!-- Zoning Overview Section -->
+            <section id="zoning-overview" class="report-section">
+                <div class="zoning-overview">
+                    <div class="zone-badge">R-2</div>
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Residential Two-Family District</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        ADUs are permitted by-right in R-2 zones. No special permit or variance required.
+                    </p>
+                    
+                    <div class="zoning-grid">
+                        <div class="zoning-stat">
+                            <div class="stat-label">Minimum Lot Size</div>
+                            <div class="stat-value">5,000<span class="stat-unit">sq ft</span></div>
+                        </div>
+                        <div class="zoning-stat">
+                            <div class="stat-label">Max ADU Size</div>
+                            <div class="stat-value">900<span class="stat-unit">sq ft</span></div>
+                        </div>
+                        <div class="zoning-stat">
+                            <div class="stat-label">Lot Coverage</div>
+                            <div class="stat-value">35<span class="stat-unit">%</span></div>
+                        </div>
+                        <div class="zoning-stat">
+                            <div class="stat-label">Height Limit</div>
+                            <div class="stat-value">20<span class="stat-unit">feet</span></div>
+                        </div>
+                        <div class="zoning-stat">
+                            <div class="stat-label">Parking Required</div>
+                            <div class="stat-value">1<span class="stat-unit">space</span></div>
+                        </div>
+                        <div class="zoning-stat">
+                            <div class="stat-label">Owner Occupancy</div>
+                            <div class="stat-value">Yes<span class="stat-unit">required</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Setbacks Visualization Section -->
+            <section id="zoning-setbacks" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">straighten</span>
+                            Setback Requirements
+                        </h2>
+                    </div>
+                    
+                    <div class="setback-visual">
+                        <div class="property-diagram">
+                            <div class="property-lot">
+                                <div class="setback-lines">
+                                    <div class="setback-line front">15'</div>
+                                    <div class="setback-line rear">15'</div>
+                                    <div class="setback-line left">10'</div>
+                                    <div class="setback-line right">10'</div>
+                                </div>
+                                <div class="buildable-area">
+                                    <div class="main-house">Main House</div>
+                                    <div class="adu-footprint">ADU</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="setback-details">
+                            <h3>Your Property Setbacks</h3>
+                            <div class="setback-list">
+                                <div class="setback-item">
+                                    <span class="setback-label">Front Yard</span>
+                                    <span class="setback-value">15 feet</span>
+                                    <span class="setback-status ok">✓ Met</span>
+                                </div>
+                                <div class="setback-item">
+                                    <span class="setback-label">Rear Yard</span>
+                                    <span class="setback-value">15 feet</span>
+                                    <span class="setback-status ok">✓ Met</span>
+                                </div>
+                                <div class="setback-item">
+                                    <span class="setback-label">Side Yards</span>
+                                    <span class="setback-value">10 feet each</span>
+                                    <span class="setback-status ok">✓ Met</span>
+                                </div>
+                                <div class="setback-item">
+                                    <span class="setback-label">Between Buildings</span>
+                                    <span class="setback-value">10 feet min</span>
+                                    <span class="setback-status ok">✓ 25' planned</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="buildable-calculation">
+                        <h3>Buildable Area Calculation</h3>
+                        <div class="calc-steps">
+                            <div class="calc-step">
+                                <span class="step-label">Total Lot Size</span>
+                                <span class="step-value">7,200 sq ft</span>
+                            </div>
+                            <div class="calc-step">
+                                <span class="step-label">Less: Setback Areas</span>
+                                <span class="step-value">-2,100 sq ft</span>
+                            </div>
+                            <div class="calc-step">
+                                <span class="step-label">Less: Existing House</span>
+                                <span class="step-value">-1,800 sq ft</span>
+                            </div>
+                            <div class="calc-step result">
+                                <span class="step-label">Available for ADU</span>
+                                <span class="step-value">3,300 sq ft</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Allowed Uses Section -->
+            <section id="zoning-allowed" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">check_circle</span>
+                            What's Allowed
+                        </h2>
+                    </div>
+                    
+                    <div class="allowed-grid">
+                        <div class="allowed-category">
+                            <h3 class="category-header">
+                                <span class="material-icons">home</span>
+                                ADU Types Permitted
+                            </h3>
+                            <div class="allowed-items">
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Detached ADU
+                                </div>
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Attached ADU
+                                </div>
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Garage Conversion
+                                </div>
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Above Garage ADU
+                                </div>
+                                <div class="allowed-item no">
+                                    <span class="material-icons">close</span>
+                                    Junior ADU (JADU)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="allowed-category">
+                            <h3 class="category-header">
+                                <span class="material-icons">groups</span>
+                                Occupancy Rules
+                            </h3>
+                            <div class="allowed-items">
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Long-term rental (30+ days)
+                                </div>
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Family member housing
+                                </div>
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Home office with dwelling
+                                </div>
+                                <div class="allowed-item no">
+                                    <span class="material-icons">close</span>
+                                    Short-term rental (<30 days)
+                                </div>
+                                <div class="allowed-item no">
+                                    <span class="material-icons">close</span>
+                                    Pure commercial use
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="allowed-category">
+                            <h3 class="category-header">
+                                <span class="material-icons">construction</span>
+                                Design Flexibility
+                            </h3>
+                            <div class="allowed-items">
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Two-story allowed
+                                </div>
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Separate entrance required
+                                </div>
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Full kitchen permitted
+                                </div>
+                                <div class="allowed-item yes">
+                                    <span class="material-icons">check</span>
+                                    Multiple bedrooms OK
+                                </div>
+                                <div class="allowed-item info">
+                                    <span class="material-icons">info</span>
+                                    Must match main house style
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="special-provisions">
+                        <h3>Special ADU Provisions in Salem</h3>
+                        <div class="provision-cards">
+                            <div class="provision-card">
+                                <span class="material-icons">reduce_capacity</span>
+                                <h4>Reduced Parking</h4>
+                                <p>Only 1 space required for ADU (typically 2)</p>
+                            </div>
+                            <div class="provision-card">
+                                <span class="material-icons">fast_forward</span>
+                                <h4>Expedited Review</h4>
+                                <p>60-day approval timeline for compliant ADUs</p>
+                            </div>
+                            <div class="provision-card">
+                                <span class="material-icons">account_balance_wallet</span>
+                                <h4>Fee Waivers</h4>
+                                <p>Impact fees waived for ADUs under 750 sq ft</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Permitting Process Section -->
+            <section id="zoning-process" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">timeline</span>
+                            Permitting Process
+                        </h2>
+                    </div>
+                    
+                    <div class="process-timeline">
+                        <div class="process-step completed">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Pre-Application Meeting</h3>
+                                <p>Optional but recommended • 1 week</p>
+                                <div class="step-tasks">
+                                    <div class="task">✓ Review zoning compliance</div>
+                                    <div class="task">✓ Discuss project scope</div>
+                                    <div class="task">✓ Identify potential issues</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step current">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Plan Preparation</h3>
+                                <p>With your architect • 3-4 weeks</p>
+                                <div class="step-tasks">
+                                    <div class="task">Site plan</div>
+                                    <div class="task">Floor plans</div>
+                                    <div class="task">Elevations</div>
+                                    <div class="task">Construction details</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Submit Application</h3>
+                                <p>At planning counter • 1 day</p>
+                                <div class="step-tasks">
+                                    <div class="task">Complete forms</div>
+                                    <div class="task">Submit plans</div>
+                                    <div class="task">Pay fees</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3>Plan Check Review</h3>
+                                <p>City review • 3-4 weeks</p>
+                                <div class="step-tasks">
+                                    <div class="task">Zoning review</div>
+                                    <div class="task">Building code review</div>
+                                    <div class="task">Fire department review</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h3>Corrections & Resubmittal</h3>
+                                <p>If needed • 1-2 weeks</p>
+                                <div class="step-tasks">
+                                    <div class="task">Address comments</div>
+                                    <div class="task">Revise plans</div>
+                                    <div class="task">Resubmit</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h3>Permit Issuance</h3>
+                                <p>Ready to build! • 2-3 days</p>
+                                <div class="step-tasks">
+                                    <div class="task">Pick up permits</div>
+                                    <div class="task">Post on job site</div>
+                                    <div class="task">Schedule inspections</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="permit-documents">
+                        <h3>Required Documents Checklist</h3>
+                        <div class="document-list">
+                            <div class="document-item">
+                                <input type="checkbox" id="doc1">
+                                <label for="doc1">Property survey or plot plan</label>
+                            </div>
+                            <div class="document-item">
+                                <input type="checkbox" id="doc2">
+                                <label for="doc2">Site plan showing ADU location</label>
+                            </div>
+                            <div class="document-item">
+                                <input type="checkbox" id="doc3">
+                                <label for="doc3">Floor plans (1/4" scale)</label>
+                            </div>
+                            <div class="document-item">
+                                <input type="checkbox" id="doc4">
+                                <label for="doc4">Exterior elevations</label>
+                            </div>
+                            <div class="document-item">
+                                <input type="checkbox" id="doc5">
+                                <label for="doc5">Structural calculations</label>
+                            </div>
+                            <div class="document-item">
+                                <input type="checkbox" id="doc6">
+                                <label for="doc6">Title 24 energy compliance</label>
+                            </div>
+                            <div class="document-item">
+                                <input type="checkbox" id="doc7">
+                                <label for="doc7">Owner authorization letter</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fees & Costs Section -->
+            <section id="zoning-fees" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">payments</span>
+                            Permit Fees & Costs
+                        </h2>
+                    </div>
+                    
+                    <div class="fee-breakdown">
+                        <div class="fee-summary-box">
+                            <h3>Total Estimated Permit Costs</h3>
+                            <div class="total-amount">$8,500 - $12,000</div>
+                            <p>Based on 850 sq ft ADU valued at $210,000</p>
+                        </div>
+                        
+                        <div class="fee-details">
+                            <div class="fee-section">
+                                <h3>Building Department Fees</h3>
+                                <div class="fee-line">
+                                    <span class="fee-name">Building Permit</span>
+                                    <span class="fee-amount">$3,150</span>
+                                </div>
+                                <div class="fee-line">
+                                    <span class="fee-name">Plan Check (65% of permit)</span>
+                                    <span class="fee-amount">$2,048</span>
+                                </div>
+                                <div class="fee-line">
+                                    <span class="fee-name">Electrical Permit</span>
+                                    <span class="fee-amount">$385</span>
+                                </div>
+                                <div class="fee-line">
+                                    <span class="fee-name">Plumbing Permit</span>
+                                    <span class="fee-amount">$425</span>
+                                </div>
+                                <div class="fee-line">
+                                    <span class="fee-name">Mechanical Permit</span>
+                                    <span class="fee-amount">$285</span>
+                                </div>
+                            </div>
+                            
+                            <div class="fee-section">
+                                <h3>Impact & Connection Fees</h3>
+                                <div class="fee-line">
+                                    <span class="fee-name">School Impact Fee</span>
+                                    <span class="fee-amount">Waived for ADU</span>
+                                </div>
+                                <div class="fee-line">
+                                    <span class="fee-name">Parks Fee</span>
+                                    <span class="fee-amount">Waived for ADU</span>
+                                </div>
+                                <div class="fee-line">
+                                    <span class="fee-name">Sewer Connection</span>
+                                    <span class="fee-amount">$1,200</span>
+                                </div>
+                                <div class="fee-line">
+                                    <span class="fee-name">Water Meter</span>
+                                    <span class="fee-amount">$850</span>
+                                </div>
+                            </div>
+                            
+                            <div class="fee-section">
+                                <h3>Other Required Fees</h3>
+                                <div class="fee-line">
+                                    <span class="fee-name">Energy Compliance</span>
+                                    <span class="fee-amount">$195</span>
+                                </div>
+                                <div class="fee-line">
+                                    <span class="fee-name">Green Building Fee</span>
+                                    <span class="fee-amount">$425</span>
+                                </div>
+                                <div class="fee-line">
+                                    <span class="fee-name">Technology Fee (2.5%)</span>
+                                    <span class="fee-amount">$157</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fee-tips">
+                        <h3>Money-Saving Tips</h3>
+                        <div class="tip-cards">
+                            <div class="tip-card">
+                                <span class="material-icons">savings</span>
+                                <h4>Keep it under 750 sq ft</h4>
+                                <p>Waives most impact fees, saving $3,000+</p>
+                            </div>
+                            <div class="tip-card">
+                                <span class="material-icons">architecture</span>
+                                <h4>Submit complete plans</h4>
+                                <p>Avoid resubmittal fees and delays</p>
+                            </div>
+                            <div class="tip-card">
+                                <span class="material-icons">electric_bolt</span>
+                                <h4>Share utilities</h4>
+                                <p>Avoid separate meter fees when possible</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contacts Section -->
+            <section id="zoning-contacts" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">contacts</span>
+                            Key Contacts
+                        </h2>
+                    </div>
+                    
+                    <div class="contacts-grid">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <span class="material-icons">location_city</span>
+                            </div>
+                            <h3>Planning Department</h3>
+                            <div class="contact-info">
+                                <p>98 Washington Street, 2nd Floor</p>
+                                <p>Salem, MA 01970</p>
+                                <p class="phone">(978) 619-5685</p>
+                                <p class="hours">Mon-Fri: 8:00 AM - 4:00 PM</p>
+                            </div>
+                            <div class="contact-actions">
+                                <button class="btn secondary">
+                                    <span class="material-icons">call</span>
+                                    Call
+                                </button>
+                                <button class="btn secondary">
+                                    <span class="material-icons">email</span>
+                                    Email
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <span class="material-icons">construction</span>
+                            </div>
+                            <h3>Building Department</h3>
+                            <div class="contact-info">
+                                <p>98 Washington Street, 1st Floor</p>
+                                <p>Salem, MA 01970</p>
+                                <p class="phone">(978) 619-5640</p>
+                                <p class="hours">Mon-Fri: 8:00 AM - 12:00 PM</p>
+                            </div>
+                            <div class="contact-actions">
+                                <button class="btn secondary">
+                                    <span class="material-icons">call</span>
+                                    Call
+                                </button>
+                                <button class="btn secondary">
+                                    <span class="material-icons">schedule</span>
+                                    Schedule
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <span class="material-icons">local_fire_department</span>
+                            </div>
+                            <h3>Fire Prevention</h3>
+                            <div class="contact-info">
+                                <p>48 Lafayette Street</p>
+                                <p>Salem, MA 01970</p>
+                                <p class="phone">(978) 744-0166</p>
+                                <p class="hours">Mon-Fri: 8:00 AM - 4:00 PM</p>
+                            </div>
+                            <div class="contact-actions">
+                                <button class="btn secondary">
+                                    <span class="material-icons">call</span>
+                                    Call
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-tips">
+                        <h3>Best Practices for City Communication</h3>
+                        <div class="tips-list">
+                            <div class="tip">
+                                <span class="material-icons">schedule</span>
+                                <div class="tip-content">
+                                    <h4>Visit during counter hours</h4>
+                                    <p>Tuesdays and Thursdays are typically less busy</p>
+                                </div>
+                            </div>
+                            <div class="tip">
+                                <span class="material-icons">folder_open</span>
+                                <div class="tip-content">
+                                    <h4>Bring all documents</h4>
+                                    <p>Have copies of plans, applications, and property info</p>
+                                </div>
+                            </div>
+                            <div class="tip">
+                                <span class="material-icons">record_voice_over</span>
+                                <div class="tip-content">
+                                    <h4>Ask for the ADU specialist</h4>
+                                    <p>Request staff familiar with ADU regulations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-navigation">
+        <button class="bottom-nav-btn" onclick="switchCategory('zoning', 'prev')">
+            <span class="material-icons">arrow_back</span>
+            Previous Category
+        </button>
+        <button class="bottom-nav-btn center" onclick="scrollToTop()">
+            <span class="material-icons">arrow_upward</span>
+            Back to Top
+        </button>
+        <button class="bottom-nav-btn" onclick="switchCategory('site', 'next')">
+            Next Category
+            <span class="material-icons">arrow_forward</span>
+        </button>
+    </div>
+</div>

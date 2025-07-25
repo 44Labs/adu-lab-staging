@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADU Lab - Project Navigator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --border-color: #dadce0;
+            --accent-primary: #1a73e8;
+            --accent-active-bg: #e8f0fe;
+            --font-sans: 'Google Sans', 'Roboto', sans-serif;
+            --font-display: 'Google Sans', sans-serif;
+            --font-brand: 'Montserrat', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .dashboard-container {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            height: 100vh;
+        }
+
+        /* Header */
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px;
+            flex-shrink: 0;
+        }
+        .logo {
+            font-family: var(--font-brand);
+            font-size: 20px; 
+            font-weight: 600; 
+            padding: 0 16px;
+            color: var(--text-primary);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            margin-left: 24px;
+        }
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            color: var(--accent-primary);
+            background-color: var(--accent-active-bg);
+        }
+        .nav-link.active {
+            color: var(--accent-primary);
+            background-color: var(--accent-active-bg);
+            font-weight: 700;
+        }
+        .header-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .header-actions .material-icons {
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-image: url('https://placehold.co/40x40/1a73e8/ffffff?text=A');
+            background-size: cover;
+        }
+
+        /* Main Content Area */
+        #main-content-area {
+            flex-grow: 1;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--surface-color);
+        }
+
+        .page-view {
+            display: none;
+            height: 100%;
+            overflow: hidden;
+        }
+        .page-view.active {
+            display: block;
+        }
+        
+        /* Hub Page: List-Detail View */
+        .hub-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            height: 100%;
+            transition: grid-template-columns 0.3s ease-in-out;
+        }
+        .hub-layout.collapsed {
+            grid-template-columns: 0px 1fr;
+        }
+
+        .hub-list-pane {
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 100%;
+            overflow: hidden;
+            transition: padding 0.3s ease, opacity 0.3s ease;
+        }
+        .hub-layout.collapsed .hub-list-pane {
+            padding: 20px 0;
+            opacity: 0;
+        }
+
+        .hub-list-header {
+            flex-shrink: 0;
+        }
+        .hub-list-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            padding: 0 4px;
+        }
+        .filter-switch {
+            display: flex;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            padding: 4px;
+        }
+        .filter-btn {
+            flex: 1;
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            font-size: 13px;
+        }
+        .filter-btn.active {
+            background: var(--surface-color);
+            color: var(--accent-primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .hub-item-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin: 0 -20px;
+        }
+        .hub-list-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .hub-list-item:hover {
+            background-color: var(--bg-color);
+        }
+        .hub-list-item.active {
+            background-color: var(--accent-active-bg);
+        }
+        .hub-list-item .icon {
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .hub-list-item.live-brief .icon {
+            color: var(--accent-primary);
+        }
+        .hub-list-item-content {
+            flex-grow: 1;
+        }
+        .hub-list-item-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+        .hub-list-item-meta {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .hub-detail-pane {
+            position: relative;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+        .hub-detail-pane-content {
+             padding: 32px;
+        }
+        .pane-toggle-btn {
+            position: absolute;
+            top: 20px;
+            left: -12px;
+            width: 24px;
+            height: 24px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+        .pane-toggle-btn:hover {
+            background-color: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+        .detail-title {
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .detail-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        .btn {
+            padding: 10px 24px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--accent-primary);
+            border-radius: 999px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn.primary {
+            background: var(--accent-primary);
+            color: white;
+        }
+        
+        /* Report Layout with Nav Rail */
+        .report-layout {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 32px;
+        }
+        .report-nav-rail {
+            position: sticky;
+            top: 20px;
+            align-self: start;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+        .report-nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        .report-nav-link:hover {
+            background-color: var(--bg-color);
+        }
+        .report-nav-link.active {
+            background-color: var(--accent-active-bg);
+            color: var(--accent-primary);
+        }
+        .report-nav-link .label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .report-section {
+            padding-top: 24px; 
+            margin-top: -24px;
+            margin-bottom: 48px;
+        }
+        .card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        
+        .report-category-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+        .report-category-tab {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            white-space: nowrap;
+        }
+        .report-category-tab.active {
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+        .report-category-content {
+            display: none;
+        }
+        .report-category-content.active {
+            display: block;
+        }
+
+        .placeholder-component {
+            background-color: var(--surface-color);
+            border: 1px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .placeholder-component .material-icons {
+            font-size: 24px;
+            color: var(--text-secondary);
+        }
+        .placeholder-text h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0 0 4px 0;
+        }
+        .placeholder-text p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="logo">ADU Lab</div>
+            <nav class="main-nav">
+                <a href="#" class="nav-link" data-page="dash">Dash</a>
+                <a href="#" class="nav-link" data-page="studio">Studio</a>
+                <a href="#" class="nav-link" data-page="lens">Lens</a>
+                <a href="#" class="nav-link active" data-page="hub">Hub</a>
+                <a href="#" class="nav-link" data-page="learn">Learn</a>
+            </nav>
+            <div class="header-actions">
+                <span class="material-icons">search</span>
+                <span class="material-icons">notifications</span>
+                <span class="material-icons">settings</span>
+                <div class="user-avatar"></div>
+            </div>
+        </header>
+
+        <main id="main-content-area">
+            <div id="hub-page" class="page-view active">
+                <div class="hub-layout">
+                    <div class="hub-list-pane">
+                        <div class="hub-list-header">
+                            <h2 class="hub-list-title">Project Hub</h2>
+                            <div class="filter-switch">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="brief">Live Briefs</button>
+                                <button class="filter-btn" data-filter="static">Static Reports</button>
+                            </div>
+                        </div>
+                        <div class="hub-item-list"></div>
+                    </div>
+                    <div class="hub-detail-pane">
+                        <button class="pane-toggle-btn"><span class="material-icons">menu_open</span></button>
+                        <div class="hub-detail-pane-content">
+                            <div class="detail-header">
+                                <div class="detail-title-group">
+                                    <h3 class="detail-title">Salem, MA Project</h3>
+                                    <p class="detail-subtitle">Tier 3 Project Navigator</p>
+                                </div>
+                                <button class="btn primary"><span class="material-icons">edit</span> Edit Brief</button>
+                            </div>
+                             <div class="report-category-tabs">
+                                <a href="#" class="report-category-tab active" data-category="summary">Summary</a>
+                                <a href="#" class="report-category-tab" data-category="goals">Goals</a>
+                                <a href="#" class="report-category-tab" data-category="zoning">Zoning</a>
+                                <a href="#" class="report-category-tab" data-category="site">Site</a>
+                                <a href="#" class="report-category-tab" data-category="design">Design</a>
+                                <a href="#" class="report-category-tab" data-category="financial">Financial</a>
+                                <a href="#" class="report-category-tab" data-category="timeline">Timeline</a>
+                                <a href="#" class="report-category-tab" data-category="impact">Impact</a>
+                                <a href="#" class="report-category-tab" data-category="next">Next Steps</a>
+                            </div>
+
+                            <div class="report-category-content active" data-category-id="summary">
+                                <div class="report-layout">
+                                    <nav class="report-nav-rail">
+                                        <a href="#summary-snapshot" class="report-nav-link active"><span class="material-icons">dashboard</span><span class="label">Snapshot</span></a>
+                                        <a href="#summary-findings" class="report-nav-link"><span class="material-icons">fact_check</span><span class="label">Findings</span></a>
+                                        <a href="#summary-tags" class="report-nav-link"><span class="material-icons">label</span><span class="label">Tags</span></a>
+                                        <a href="#summary-meta" class="report-nav-link"><span class="material-icons">description</span><span class="label">Meta</span></a>
+                                        <a href="#summary-map" class="report-nav-link"><span class="material-icons">map</span><span class="label">Map</span></a>
+                                        <a href="#summary-nav" class="report-nav-link"><span class="material-icons">explore</span><span class="label">Navigate</span></a>
+                                    </nav>
+                                    <div class="report-content-area">
+                                        <section id="summary-snapshot" class="report-section"><div class="card"><h4 class="card-title">Project Snapshot</h4><div class="placeholder-component"><span class="material-icons">bar_chart</span><div class="placeholder-text"><h4>High-level score/indicator</h4><p>SPAR SCALE™ score component goes here.</p></div></div><div class="placeholder-component"><span class="material-icons">flag</span><div class="placeholder-text"><h4>Feasibility verdict (visual flags)</h4><p>Visual flags (e.g., green/yellow/red) for feasibility.</p></div></div><div class="placeholder-component"><span class="material-icons">image</span><div class="placeholder-text"><h4>Map thumbnail preview</h4><p>A small, static map image of the property.</p></div></div><div class="placeholder-component"><span class="material-icons">directions_car</span><div class="placeholder-text"><h4>Site access summary</h4><p>Brief text summary of property access.</p></div></div><div class="placeholder-component"><span class="material-icons">paid</span><div class="placeholder-text"><h4>Top-line cost estimate badge</h4><p>A badge showing the estimated cost range.</p></div></div><div class="placeholder-component"><span class="material-icons">warning</span><div class="placeholder-text"><h4>Quick flags or alerts</h4><p>Important alerts or warnings about the project.</p></div></div></div></section>
+                                        <section id="summary-findings" class="report-section"><div class="card"><h4 class="card-title">Key Findings</h4><div class="placeholder-component"><span class="material-icons">article</span><div class="placeholder-text"><h4>Text summary</h4><p>AI-generated summary of key findings.</p></div></div><div class="placeholder-component"><span class="material-icons">verified</span><div class="placeholder-text"><h4>Summary rating system (badges)</h4><p>Badges for different aspects (e.g., "High ROI Potential").</p></div></div><div class="placeholder-component"><span class="material-icons">auto_awesome</span><div class="placeholder-text"><h4>Smart highlights module</h4><p>Module to highlight the most critical findings.</p></div></div><div class="placeholder-component"><span class="material-icons">download</span><div class="placeholder-text"><h4>Downloadable summary PDF</h4><p>A button or link to download a PDF summary.</p></div></div></div></section>
+                                        <section id="summary-tags" class="report-section"><div class="card"><h4 class="card-title">Project Tags</h4><div class="placeholder-component"><span class="material-icons">label</span><div class="placeholder-text"><h4>Region, type, owner intent tags</h4><p>Editable chips for project categorization.</p></div></div></div></section>
+                                        <section id="summary-meta" class="report-section"><div class="card"><h4 class="card-title">Report Metadata</h4><div class="placeholder-component"><span class="material-icons">info</span><div class="placeholder-text"><h4>Tier version, timestamp, session ID</h4><p>Details about the report generation.</p></div></div></div></section>
+                                        <section id="summary-map" class="report-section"><div class="card"><h4 class="card-title">Snapshot Map</h4><div class="placeholder-component"><span class="material-icons">public</span><div class="placeholder-text"><h4>Embedded GIS/parcel visual</h4><p>An interactive map with toggleable overlays.</p></div></div></div></section>
+                                        <section id="summary-nav" class="report-section"><div class="card"><h4 class="card-title">Preview Navigator</h4><div class="placeholder-component"><span class="material-icons">explore</span><div class="placeholder-text"><h4>Navigation cards for each category</h4><p>Large clickable cards to jump to other report sections.</p></div></div></div></section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="report-category-content" data-category-id="goals">
+                                 <div class="report-layout">
+                                    <nav class="report-nav-rail">
+                                        <a href="#goals-intent" class="report-nav-link active"><span class="material-icons">lightbulb</span><span class="label">Intent</span></a>
+                                        <a href="#goals-context" class="report-nav-link"><span class="material-icons">person</span><span class="label">Context</span></a>
+                                        <a href="#goals-usecase" class="report-nav-link"><span class="material-icons">home</span><span class="label">Use Case</span></a>
+                                        <a href="#goals-constraints" class="report-nav-link"><span class="material-icons">tune</span><span class="label">Prefs</span></a>
+                                        <a href="#goals-sustainability" class="report-nav-link"><span class="material-icons">eco</span><span class="label">Green</span></a>
+                                        <a href="#goals-upgrade" class="report-nav-link"><span class="material-icons">upgrade</span><span class="label">Upgrade</span></a>
+                                    </nav>
+                                    <div class="report-content-area">
+                                        <section id="goals-intent" class="report-section"><div class="card"><h4 class="card-title">User Intent</h4><div class="placeholder-component"><span class="material-icons">rule</span><div class="placeholder-text"><h4>Goal cards, tags, and priority</h4><p>Display of primary goals (e.g., rental, family) with editable tags and priority indicators.</p></div></div></div></section>
+                                        <section id="goals-context" class="report-section"><div class="card"><h4 class="card-title">Project Context</h4><div class="placeholder-component"><span class="material-icons">badge</span><div class="placeholder-text"><h4>Project Title and Owner Info</h4><p>Display project title, owner contact block, and editable project ID.</p></div></div></div></section>
+                                        <section id="goals-usecase" class="report-section"><div class="card"><h4 class="card-title">Use Case Planner</h4><div class="placeholder-component"><span class="material-icons">event_available</span><div class="placeholder-text"><h4>Rental, Accessibility, and Flex-Use</h4><p>Toggles and selectors for rent duration, multi-gen/accessibility needs, and office/flex-space.</p></div></div></div></section>
+                                        <section id="goals-constraints" class="report-section"><div class="card"><h4 class="card-title">Constraints & Preferences</h4><div class="placeholder-component"><span class="material-icons">fence</span><div class="placeholder-text"><h4>Parking, Privacy, Setbacks</h4><p>A list of user-defined constraints and preferences.</p></div></div></div></section>
+                                        <section id="goals-sustainability" class="report-section"><div class="card"><h4 class="card-title">Sustainability Goals</h4><div class="placeholder-component"><span class="material-icons">bolt</span><div class="placeholder-text"><h4>Solar, EV, and Green Features</h4><p>Checklist or toggles for solar-ready, EV charging, and other green building features.</p></div></div></div></section>
+                                        <section id="goals-upgrade" class="report-section"><div class="card"><h4 class="card-title">Upgrade Intent</h4><div class="placeholder-component"><span class="material-icons">shopping_cart</span><div class="placeholder-text"><h4>Tier Plan and Deliverables</h4><p>Display of the user's current plan and desired deliverables.</p></div></div></div></section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="report-category-content" data-category-id="zoning">
+                                <div class="report-layout">
+                                    <nav class="report-nav-rail">
+                                        <a href="#zoning-overview" class="report-nav-link active"><span class="material-icons">grid_view</span><span class="label">Overview</span></a>
+                                        <a href="#zoning-path" class="report-nav-link"><span class="material-icons">map</span><span class="label">Path</span></a>
+                                        <a href="#zoning-flags" class="report-nav-link"><span class="material-icons">flag</span><span class="label">Flags</span></a>
+                                        <a href="#zoning-jurisdiction" class="report-nav-link"><span class="material-icons">account_balance</span><span class="label">Jurisdiction</span></a>
+                                        <a href="#zoning-analysis" class="report-nav-link"><span class="material-icons">analytics</span><span class="label">Analysis</span></a>
+                                        <a href="#zoning-constraints" class="report-nav-link"><span class="material-icons">architecture</span><span class="label">Constraints</span></a>
+                                    </nav>
+                                    <div class="report-content-area">
+                                        <section id="zoning-overview" class="report-section"><div class="card"><h4 class="card-title">Zoning Overview</h4><div class="placeholder-component"><span class="material-icons">article</span><div class="placeholder-text"><h4>Base zoning summary, ADU allowance, etc.</h4><p>Cards and text summarizing the core zoning rules for the property.</p></div></div></div></section>
+                                        <section id="zoning-path" class="report-section"><div class="card"><h4 class="card-title">Permitting Path</h4><div class="placeholder-component"><span class="material-icons">square_foot</span><div class="placeholder-text"><h4>Setback diagram, height limits, etc.</h4><p>Interactive diagrams and visual overlays for key permitting requirements.</p></div></div></div></section>
+                                        <section id="zoning-flags" class="report-section"><div class="card"><h4 class="card-title">Code Flags</h4><div class="placeholder-component"><span class="material-icons">warning</span><div class="placeholder-text"><h4>Special zones, environmental flags</h4><p>Alerts for flood zones, hillside ordinances, fire access, etc.</p></div></div></div></section>
+                                        <section id="zoning-jurisdiction" class="report-section"><div class="card"><h4 class="card-title">Jurisdiction Lookup</h4><div class="placeholder-component"><span class="material-icons">link</span><div class="placeholder-text"><h4>City/county info and links</h4><p>Contact info and links for the local planning department.</p></div></div></div></section>
+                                        <section id="zoning-analysis" class="report-section"><div class="card"><h4 class="card-title">Comparative Analysis</h4><div class="placeholder-component"><span class="material-icons">compare_arrows</span><div class="placeholder-text"><h4>Zip code comparisons and case studies</h4><p>Data comparing the property to others in the area and relevant case studies.</p></div></div></div></section>
+                                        <section id="zoning-constraints" class="report-section"><div class="card"><h4 class="card-title">Design Constraints</h4><div class="placeholder-component"><span class="material-icons">straighten</span><div class="placeholder-text"><h4>Height, coverage, and FAR caps</h4><p>A summary of the key design limitations imposed by zoning.</p></div></div></div></section>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="report-category-content" data-category-id="site">
+                                <div class="report-layout">
+                                    <nav class="report-nav-rail">
+                                        <a href="#site-profile" class="report-nav-link active"><span class="material-icons">house</span><span class="label">Profile</span></a>
+                                        <a href="#site-utilities" class="report-nav-link"><span class="material-icons">power</span><span class="label">Utilities</span></a>
+                                        <a href="#site-access" class="report-nav-link"><span class="material-icons">directions_car</span><span class="label">Access</span></a>
+                                        <a href="#site-topo" class="report-nav-link"><span class="material-icons">terrain</span><span class="label">Topo</span></a>
+                                        <a href="#site-env" class="report-nav-link"><span class="material-icons">eco</span><span class="label">Environ.</span></a>
+                                        <a href="#site-improvements" class="report-nav-link"><span class="material-icons">foundation</span><span class="label">Existing</span></a>
+                                    </nav>
+                                    <div class="report-content-area">
+                                        <section id="site-profile" class="report-section"><div class="card"><h4 class="card-title">Property Profile</h4><div class="placeholder-component"><span class="material-icons">view_in_ar</span><div class="placeholder-text"><h4>Lot dimensions, GIS overlay, etc.</h4><p>Visual diagrams and maps showing the property's layout and features.</p></div></div></div></section>
+                                        <section id="site-utilities" class="report-section"><div class="card"><h4 class="card-title">Utilities & Constraints</h4><div class="placeholder-component"><span class="material-icons">electrical_services</span><div class="placeholder-text"><h4>Utility status, connections, and site grading</h4><p>Icons and cards detailing utility connections and potential site issues.</p></div></div></div></section>
+                                        <section id="site-access" class="report-section"><div class="card"><h4 class="card-title">Infrastructure Access</h4><div class="placeholder-component"><span class="material-icons">edit_road</span><div class="placeholder-text"><h4>Driveway, easements, and parking</h4><p>Schematics and overlays for property access and parking.</p></div></div></div></section>
+                                        <section id="site-topo" class="report-section"><div class="card"><h4 class="card-title">Topographic Features</h4><div class="placeholder-component"><span class="material-icons">landscape</span><div class="placeholder-text"><h4>Slope data, retaining walls, drainage</h4><p>Information on the site's topography and its impact.</p></div></div></div></section>
+                                        <section id="site-env" class="report-section"><div class="card"><h4 class="card-title">Environmental Context</h4><div class="placeholder-component"><span class="material-icons">flood</span><div class="placeholder-text"><h4>Flood, seismic, and fire zone status</h4><p>Maps and data on environmental hazards.</p></div></div></div></section>
+                                        <section id="site-improvements" class="report-section"><div class="card"><h4 class="card-title">Existing Improvements</h4><div class="placeholder-component"><span class="material-icons">camera_alt</span><div class="placeholder-text"><h4>Home layout, garage potential, photos</h4><p>Details on existing structures and photo upload slots.</p></div></div></div></section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="report-category-content" data-category-id="design">
+                                <div class="report-layout">
+                                    <nav class="report-nav-rail">
+                                        <a href="#design-massing" class="report-nav-link active"><span class="material-icons">view_in_ar</span><span class="label">Concepts</span></a>
+                                        <a href="#design-layout" class="report-nav-link"><span class="material-icons">space_dashboard</span><span class="label">Layout</span></a>
+                                        <a href="#design-style" class="report-nav-link"><span class="material-icons">palette</span><span class="label">Style</span></a>
+                                        <a href="#design-interior" class="report-nav-link"><span class="material-icons">chair</span><span class="label">Interior</span></a>
+                                        <a href="#design-constraints" class="report-nav-link"><span class="material-icons">fence</span><span class="label">Constraints</span></a>
+                                        <a href="#design-inspiration" class="report-nav-link"><span class="material-icons">photo_library</span><span class="label">Inspiration</span></a>
+                                    </nav>
+                                    <div class="report-content-area">
+                                        <section id="design-massing" class="report-section"><div class="card"><h4 class="card-title">Massing Concepts</h4><div class="placeholder-component"><span class="material-icons">cube</span><div class="placeholder-text"><h4>3D massing preview, option cards, etc.</h4><p>Visualizations of potential ADU shapes and sizes on the property.</p></div></div></div></section>
+                                        <section id="design-layout" class="report-section"><div class="card"><h4 class="card-title">Layout Ideas</h4><div class="placeholder-component"><span class="material-icons">grid_on</span><div class="placeholder-text"><h4>Interactive floor plan thumbnails</h4><p>Small, clickable floor plans and style selectors.</p></div></div></div></section>
+                                        <section id="design-style" class="report-section"><div class="card"><h4 class="card-title">Style Preferences</h4><div class="placeholder-component"><span class="material-icons">color_lens</span><div class="placeholder-text"><h4>Architectural styles and material swatches</h4><p>Selectors for styles like Contemporary, Craftsman, etc.</p></div></div></div></section>
+                                        <section id="design-interior" class="report-section"><div class="card"><h4 class="card-title">Interior Planning</h4><div class="placeholder-component"><span class="material-icons">king_bed</span><div class="placeholder-text"><h4>Bedroom/bathroom sliders, kitchen toggles</h4><p>Interactive tools for planning the interior layout.</p></div></div></div></section>
+                                        <section id="design-constraints" class="report-section"><div class="card"><h4 class="card-title">Constraints</h4><div class="placeholder-component"><span class="material-icons">height</span><div class="placeholder-text"><h4>Height/width blockers, access paths</h4><p>Visual indicators for design limitations.</p></div></div></div></section>
+                                        <section id="design-inspiration" class="report-section"><div class="card"><h4 class="card-title">Inspiration Library</h4><div class="placeholder-component"><span class="material-icons">collections</span><div class="placeholder-text"><h4>Example images and case studies</h4><p>A gallery of inspirational ADU projects.</p></div></div></div></section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="report-category-content" data-category-id="financial">
+                                 <div class="report-layout">
+                                    <nav class="report-nav-rail">
+                                        <a href="#financial-summary" class="report-nav-link active"><span class="material-icons">paid</span><span class="label">Summary</span></a>
+                                        <a href="#financial-funding" class="report-nav-link"><span class="material-icons">account_balance</span><span class="label">Funding</span></a>
+                                        <a href="#financial-roi" class="report-nav-link"><span class="material-icons">trending_up</span><span class="label">ROI</span></a>
+                                        <a href="#financial-benchmarks" class="report-nav-link"><span class="material-icons">leaderboard</span><span class="label">Benchmarks</span></a>
+                                        <a href="#financial-fees" class="report-nav-link"><span class="material-icons">receipt_long</span><span class="label">Fees</span></a>
+                                        <a href="#financial-scenarios" class="report-nav-link"><span class="material-icons">build_circle</span><span class="label">Scenarios</span></a>
+                                    </nav>
+                                    <div class="report-content-area">
+                                        <section id="financial-summary" class="report-section"><div class="card"><h4 class="card-title">Cost Summary</h4><div class="placeholder-component"><span class="material-icons">request_quote</span><div class="placeholder-text"><h4>Estimated cost range cards</h4><p>Visual cards showing the low, medium, and high cost estimates.</p></div></div><div class="placeholder-component"><span class="material-icons">table_rows</span><div class="placeholder-text"><h4>Tier 3 line-item breakdown table</h4><p>A detailed table of all anticipated costs.</p></div></div></div></section>
+                                        <section id="financial-funding" class="report-section"><div class="card"><h4 class="card-title">Funding Options</h4><div class="placeholder-component"><span class="material-icons">credit_card</span><div class="placeholder-text"><h4>Financing strategy cards</h4><p>Cards outlining different funding strategies (e.g., HELOC, Cash, Loan).</p></div></div><div class="placeholder-component"><span class="material-icons">school</span><div class="placeholder-text"><h4>Loan and grant resource links</h4><p>A list of helpful links to financing resources.</p></div></div></div></section>
+                                        <section id="financial-roi" class="report-section"><div class="card"><h4 class="card-title">ROI Preview</h4><div class="placeholder-component"><span class="material-icons">bar_chart</span><div class="placeholder-text"><h4>Revenue bar chart or cash flow graph</h4><p>A graph visualizing potential rental income vs. costs over time.</p></div></div><div class="placeholder-component"><span class="material-icons">badge</span><div class="placeholder-text"><h4>Payback period badge</h4><p>A clear badge indicating the estimated time to recoup investment.</p></div></div></div></section>
+                                        <section id="financial-benchmarks" class="report-section"><div class="card"><h4 class="card-title">Cost Benchmarks</h4><div class="placeholder-component"><span class="material-icons">architecture</span><div class="placeholder-text"><h4>Regional average cost per sq ft</h4><p>Data comparing your project's costs to local averages.</p></div></div></div></section>
+                                        <section id="financial-fees" class="report-section"><div class="card"><h4 class="card-title">Soft Costs & Fees</h4><div class="placeholder-component"><span class="material-icons">gavel</span><div class="placeholder-text"><h4>Permits, design, consultant breakout</h4><p>A breakdown of non-construction costs.</p></div></div></div></section>
+                                        <section id="financial-scenarios" class="report-section"><div class="card"><h4 class="card-title">Upgrade Scenarios</h4><div class="placeholder-component"><span class="material-icons">construction</span><div class="placeholder-text"><h4>What-if module for budget changes</h4><p>An interactive tool to see how different choices affect the budget.</p></div></div></div></section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="report-category-content" data-category-id="timeline">
+                                <div class="report-layout">
+                                    <nav class="report-nav-rail">
+                                        <a href="#timeline-phases" class="report-nav-link active"><span class="material-icons">timeline</span><span class="label">Phases</span></a>
+                                        <a href="#timeline-milestones" class="report-nav-link"><span class="material-icons">flag</span><span class="label">Milestones</span></a>
+                                        <a href="#timeline-summary" class="report-nav-link"><span class="material-icons">timer</span><span class="label">Summary</span></a>
+                                        <a href="#timeline-permitting" class="report-nav-link"><span class="material-icons">assignment</span><span class="label">Permits</span></a>
+                                        <a href="#timeline-deps" class="report-nav-link"><span class="material-icons">link</span><span class="label">Deps</span></a>
+                                        <a href="#timeline-tasks" class="report-nav-link"><span class="material-icons">task_alt</span><span class="label">Tasks</span></a>
+                                    </nav>
+                                    <div class="report-content-area">
+                                        <section id="timeline-phases" class="report-section"><div class="card"><h4 class="card-title">Project Phases</h4><div class="placeholder-component"><span class="material-icons">linear_scale</span><div class="placeholder-text"><h4>Visual roadmap or timeline slider</h4><p>An interactive timeline of the project's major phases.</p></div></div></div></section>
+                                        <section id="timeline-milestones" class="report-section"><div class="card"><h4 class="card-title">Key Milestones</h4><div class="placeholder-component"><span class="material-icons">event</span><div class="placeholder-text"><h4>Target start/finish dates</h4><p>Editable fields for key project dates and calendar integration.</p></div></div></div></section>
+                                        <section id="timeline-summary" class="report-section"><div class="card"><h4 class="card-title">Duration Summary</h4><div class="placeholder-component"><span class="material-icons">hourglass_bottom</span><div class="placeholder-text"><h4>Total time forecast</h4><p>A summary of the total estimated project duration.</p></div></div></div></section>
+                                        <section id="timeline-permitting" class="report-section"><div class="card"><h4 class="card-title">Permitting Estimates</h4><div class="placeholder-component"><span class="material-icons">approval</span><div class="placeholder-text"><h4>Jurisdiction-specific estimate</h4><p>An estimated timeline for securing permits in the local area.</p></div></div></div></section>
+                                        <section id="timeline-deps" class="report-section"><div class="card"><h4 class="card-title">Dependencies</h4><div class="placeholder-component"><span class="material-icons">account_tree</span><div class="placeholder-text"><h4>Predecessor task flags</h4><p>Visual indicators for tasks that depend on others.</p></div></div></div></section>
+                                        <section id="timeline-tasks" class="report-section"><div class="card"><h4 class="card-title">Task Generator</h4><div class="placeholder-component"><span class="material-icons">add_task</span><div class="placeholder-text"><h4>Link to live schedule manager</h4><p>A link to the full task and schedule management tool.</p></div></div></div></section>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="report-category-content" data-category-id="impact">
+                                <div class="report-layout">
+                                    <nav class="report-nav-rail">
+                                        <a href="#impact-benefits" class="report-nav-link active"><span class="material-icons">sentiment_very_satisfied</span><span class="label">Benefits</span></a>
+                                        <a href="#impact-risks" class="report-nav-link"><span class="material-icons">warning</span><span class="label">Risks</span></a>
+                                        <a href="#impact-sustainability" class="report-nav-link"><span class="material-icons">eco</span><span class="label">Green</span></a>
+                                        <a href="#impact-social" class="report-nav-link"><span class="material-icons">group</span><span class="label">Social</span></a>
+                                        <a href="#impact-value" class="report-nav-link"><span class="material-icons">show_chart</span><span class="label">Value</span></a>
+                                        <a href="#impact-flexibility" class="report-nav-link"><span class="material-icons">360</span><span class="label">Flexibility</span></a>
+                                    </nav>
+                                    <div class="report-content-area">
+                                        <section id="impact-benefits" class="report-section"><div class="card"><h4 class="card-title">Benefits</h4><div class="placeholder-component"><span class="material-icons">family_restroom</span><div class="placeholder-text"><h4>Lifestyle benefit cards</h4><p>Cards outlining benefits like "Family Proximity" or "Workspace".</p></div></div><div class="placeholder-component"><span class="material-icons">attach_money</span><div class="placeholder-text"><h4>Financial uplift visuals</h4><p>Graphs showing potential property value increase and rental income.</p></div></div></div></section>
+                                        <section id="impact-risks" class="report-section"><div class="card"><h4 class="card-title">Risks & Mitigation</h4><div class="placeholder-component"><span class="material-icons">report_problem</span><div class="placeholder-text"><h4>Risk factor list with severity flags</h4><p>A list of potential risks (e.g., "Budget Overrun") with color-coded flags.</p></div></div><div class="placeholder-component"><span class="material-icons">toggle_on</span><div class="placeholder-text"><h4>Mitigation strategy toggles</h4><p>Interactive toggles for various risk mitigation strategies.</p></div></div></div></section>
+                                        <section id="impact-sustainability" class="report-section"><div class="card"><h4 class="card-title">Sustainability</h4><div class="placeholder-component"><span class="material-icons">checklist</span><div class="placeholder-text"><h4>EV, solar, green checklist</h4><p>A checklist for various sustainable and green building options.</p></div></div><div class="placeholder-component"><span class="material-icons">thermostat</span><div class="placeholder-text"><h4>Emissions impact slider</h4><p>An interactive slider to visualize the project's carbon footprint.</p></div></div></div></section>
+                                        <section id="impact-social" class="report-section"><div class="card"><h4 class="card-title">Social Good</h4><div class="placeholder-component"><span class="material-icons">elderly</span><div class="placeholder-text"><h4>Aging-in-place rating</h4><p>A score or rating of the design's suitability for aging in place.</p></div></div><div class="placeholder-component"><span class="material-icons">other_houses</span><div class="placeholder-text"><h4>Community housing benefit</h4><p>Information on how the ADU contributes to local housing.</p></div></div></div></section>
+                                        <section id="impact-value" class="report-section"><div class="card"><h4 class="card-title">Long-Term Value</h4><div class="placeholder-component"><span class="material-icons">real_estate_agent</span><div class="placeholder-text"><h4>Resale value uplift range</h4><p>An estimated range of how much the ADU could increase the property's resale value.</p></div></div><div class="placeholder-component"><span class="material-icons">savings</span><div class="placeholder-text"><h4>Long-term rental net gain</h4><p>A projection of the net financial gain from long-term rental income.</p></div></div></div></section>
+                                        <section id="impact-flexibility" class="report-section"><div class="card"><h4 class="card-title">Design Flexibility</h4><div class="placeholder-component"><span class="material-icons">shuffle</span><div class="placeholder-text"><h4>Conversion options over time</h4><p>Information on how the space could be adapted for different uses in the future.</p></div></div></div></section>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="report-category-content" data-category-id="next">
+                                <div class="report-layout">
+                                    <nav class="report-nav-rail">
+                                        <a href="#next-actions" class="report-nav-link active"><span class="material-icons">checklist</span><span class="label">Actions</span></a>
+                                        <a href="#next-upgrades" class="report-nav-link"><span class="material-icons">upgrade</span><span class="label">Upgrades</span></a>
+                                        <a href="#next-team" class="report-nav-link"><span class="material-icons">group</span><span class="label">Team</span></a>
+                                        <a href="#next-review" class="report-nav-link"><span class="material-icons">approval</span><span class="label">Review</span></a>
+                                        <a href="#next-builder" class="report-nav-link"><span class="material-icons">construction</span><span class="label">Builder</span></a>
+                                        <a href="#next-feedback" class="report-nav-link"><span class="material-icons">feedback</span><span class="label">Feedback</span></a>
+                                    </nav>
+                                    <div class="report-content-area">
+                                        <section id="next-actions" class="report-section"><div class="card"><h4 class="card-title">Recommended Actions</h4><div class="placeholder-component"><span class="material-icons">task_alt</span><div class="placeholder-text"><h4>Task checklist module</h4><p>An interactive checklist of the next steps to take.</p></div></div><div class="placeholder-component"><span class="material-icons">upload_file</span><div class="placeholder-text"><h4>Document upload slots</h4><p>Areas for the user to upload relevant documents.</p></div></div></div></section>
+                                        <section id="next-upgrades" class="report-section"><div class="card"><h4 class="card-title">Upgrade Paths</h4><div class="placeholder-component"><span class="material-icons">add_shopping_cart</span><div class="placeholder-text"><h4>Tier upgrade callout card</h4><p>A card prompting the user to upgrade to a higher tier for more features.</p></div></div><div class="placeholder-component"><span class="material-icons">print</span><div class="placeholder-text"><h4>Export/print buttons (PDF, plan set)</h4><p>Buttons to export the report in various formats.</p></div></div></div></section>
+                                        <section id="next-team" class="report-section"><div class="card"><h4 class="card-title">Contacts & Team</h4><div class="placeholder-component"><span class="material-icons">contacts</span><div class="placeholder-text"><h4>Owner/lead contacts</h4><p>A section displaying contact information for the project owner.</p></div></div><div class="placeholder-component"><span class="material-icons">person_add</span><div class="placeholder-text"><h4>Add collaborator buttons</h4><p>Functionality to invite team members to the project.</p></div></div></div></section>
+                                        <section id="next-review" class="report-section"><div class="card"><h4 class="card-title">Submission & Review</h4><div class="placeholder-component"><span class="material-icons">send</span><div class="placeholder-text"><h4>Permit-ready review steps</h4><p>A guide for reviewing the brief before submitting for permits.</p></div></div></div></section>
+                                        <section id="next-builder" class="report-section"><div class="card"><h4 class="card-title">Builder Matching</h4><div class="placeholder-component"><span class="material-icons">handshake</span><div class="placeholder-text"><h4>Marketplace preview</h4><p>A preview of a potential builder marketplace.</p></div></div></div></section>
+                                        <section id="next-feedback" class="report-section"><div class="card"><h4 class="card-title">Feedback Loop</h4><div class="placeholder-component"><span class="material-icons">rate_review</span><div class="placeholder-text"><h4>Feedback form module</h4><p>A form for users to provide feedback on their report.</p></div></div></div></section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hubPage = document.getElementById('hub-page');
+            if (!hubPage) return;
+
+            const hubLayout = hubPage.querySelector('.hub-layout');
+            const toggleBtn = hubPage.querySelector('.pane-toggle-btn');
+            const itemListContainer = hubPage.querySelector('.hub-item-list');
+            const filterBtns = hubPage.querySelectorAll('.filter-btn');
+
+            const hubData = [
+                { id: 'synthesis', type: 'brief', title: 'Live Project Synthesis', meta: 'Master Project Brief' },
+                { id: 't3-live', type: 'brief', title: 'Tier 3 Project Navigator', meta: 'Live Brief' },
+                { id: 't3-static', type: 'static', title: 'Tier 3 Project Navigator', meta: 'Static Report' },
+                { id: 't2-live', type: 'brief', title: 'Tier 2 Insight Suite', meta: 'Live Brief' },
+                { id: 't2-static', type: 'static', title: 'Tier 2 Insight Suite', meta: 'Static Report' },
+                { id: 't1-static', type: 'static', title: 'Tier 1 Feasibility Assessment', meta: 'Static Report' },
+            ];
+
+            const renderHubList = (filter = 'all') => {
+                itemListContainer.innerHTML = '';
+                const filteredData = hubData.filter(item => filter === 'all' || item.type === filter);
+                
+                filteredData.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = `hub-list-item ${item.type === 'brief' ? 'live-brief' : ''}`;
+                    itemEl.dataset.itemId = item.id;
+                    itemEl.innerHTML = `
+                        <span class="material-icons icon">${item.type === 'brief' ? 'auto_stories' : 'lock'}</span>
+                        <div class="hub-list-item-content">
+                            <div class="hub-list-item-title">${item.title}</div>
+                            <div class="hub-list-item-meta">${item.meta}</div>
+                        </div>
+                    `;
+                    itemEl.addEventListener('click', () => showDetail(item.id));
+                    itemListContainer.appendChild(itemEl);
+                });
+            };
+            
+            const showDetail = (itemId) => {
+                document.querySelectorAll('.hub-list-item').forEach(el => el.classList.remove('active'));
+                const activeItem = document.querySelector(`.hub-list-item[data-item-id="${itemId}"]`);
+                if(activeItem) activeItem.classList.add('active');
+                
+                hubLayout.classList.add('collapsed');
+                toggleBtn.querySelector('.material-icons').textContent = 'menu';
+            };
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderHubList(btn.dataset.filter);
+                });
+            });
+
+            toggleBtn.addEventListener('click', () => {
+                hubLayout.classList.toggle('collapsed');
+                const icon = toggleBtn.querySelector('.material-icons');
+                icon.textContent = hubLayout.classList.contains('collapsed') ? 'menu' : 'menu_open';
+            });
+
+            function initializeReportTabs(reportContainer) {
+                const categoryTabs = reportContainer.querySelectorAll('.report-category-tab');
+                const categoryContents = reportContainer.querySelectorAll('.report-category-content');
+                
+                categoryTabs.forEach(tab => {
+                    tab.addEventListener('click', e => {
+                        e.preventDefault();
+                        categoryTabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+
+                        const categoryId = tab.dataset.category;
+                        categoryContents.forEach(content => {
+                            content.classList.toggle('active', content.dataset.categoryId === categoryId);
+                        });
+                        initializeVerticalNavRail();
+                    });
+                });
+            }
+            
+            function initializeVerticalNavRail() {
+                const detailPane = document.querySelector('.hub-detail-pane');
+                const activeCategory = document.querySelector('.report-category-content.active');
+                if (!activeCategory || !detailPane) return;
+
+                const navLinks = activeCategory.querySelectorAll('.report-nav-link');
+                const sections = activeCategory.querySelectorAll('.report-section');
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href');
+                        const targetSection = activeCategory.querySelector(targetId);
+                        if(targetSection) {
+                            detailPane.scrollTo({ top: targetSection.offsetTop - 32, behavior: 'smooth' });
+                        }
+                    });
+                });
+
+                const onScroll = () => {
+                    let current = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (detailPane.scrollTop >= sectionTop - 60) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${current}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                };
+                
+                detailPane.removeEventListener('scroll', onScroll); 
+                detailPane.addEventListener('scroll', onScroll, { passive: true });
+                onScroll();
+            }
+            
+            renderHubList();
+            initializeReportTabs(document.querySelector('.hub-detail-pane-content'));
+            showDetail('t3-live');
+            initializeVerticalNavRail();
+        });
+    </script>
+</body>
+</html>

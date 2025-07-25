@@ -1,0 +1,727 @@
+<!-- Category Tabs -->
+<div class="report-category-tabs">
+    <a href="#" class="report-category-tab" data-category="summary">Summary</a>
+    <a href="#" class="report-category-tab" data-category="financial">Financial</a>
+    <a href="#" class="report-category-tab" data-category="zoning">Zoning</a>
+    <a href="#" class="report-category-tab" data-category="site">Site</a>
+    <a href="#" class="report-category-tab" data-category="design">Design</a>
+    <a href="#" class="report-category-tab active" data-category="timeline">Timeline</a>
+    <a href="#" class="report-category-tab" data-category="goals">Goals</a>
+    <a href="#" class="report-category-tab" data-category="impact">Impact</a>
+    <a href="#" class="report-category-tab" data-category="next-steps">Next Steps</a>
+</div>
+
+<!-- TIMELINE CATEGORY -->
+<div class="report-category-content" data-category-id="timeline">
+    <div class="report-layout">
+        <nav class="report-nav-rail">
+            <a href="#timeline-phases" class="report-nav-link active">
+                <span class="material-icons">timeline</span>
+                <span class="label">Phases</span>
+            </a>
+            <a href="#timeline-milestones" class="report-nav-link">
+                <span class="material-icons">flag</span>
+                <span class="label">Milestones</span>
+            </a>
+            <a href="#timeline-duration" class="report-nav-link">
+                <span class="material-icons">schedule</span>
+                <span class="label">Duration</span>
+            </a>
+            <a href="#timeline-permits" class="report-nav-link">
+                <span class="material-icons">description</span>
+                <span class="label">Permits</span>
+            </a>
+            <a href="#timeline-dependencies" class="report-nav-link">
+                <span class="material-icons">account_tree</span>
+                <span class="label">Dependencies</span>
+            </a>
+            <a href="#timeline-tasks" class="report-nav-link">
+                <span class="material-icons">task_alt</span>
+                <span class="label">Tasks</span>
+            </a>
+        </nav>
+        
+        <div class="report-content-area">
+            <!-- Journey Overview Hero -->
+            <section class="journey-hero">
+                <h2 class="journey-title">Your ADU Journey at a Glance</h2>
+                <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    Building an ADU is an exciting journey. We've mapped out every step to help you feel confident and prepared.
+                </p>
+                <div class="journey-summary">
+                    <div class="journey-stat">
+                        <div class="journey-number">6-8</div>
+                        <div class="journey-label">Months Total</div>
+                    </div>
+                    <div class="journey-stat">
+                        <div class="journey-number">5</div>
+                        <div class="journey-label">Major Phases</div>
+                    </div>
+                    <div class="journey-stat">
+                        <div class="journey-number">35%</div>
+                        <div class="journey-label">Complete</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Phases - Subway Map -->
+            <section id="timeline-phases" class="phases-section">
+                <div class="section-header">
+                    <div class="section-icon">🚇</div>
+                    <h2 class="section-title">Project Phases</h2>
+                </div>
+
+                <div class="subway-timeline">
+                    <div class="subway-line"></div>
+                    <div class="subway-progress"></div>
+                    
+                    <div class="subway-stations">
+                        <div class="station completed">
+                            <div class="station-dot"></div>
+                            <div class="station-name">Planning</div>
+                            <div class="station-duration">2-3 weeks</div>
+                        </div>
+                        <div class="station current">
+                            <div class="station-dot"></div>
+                            <div class="station-name">Design</div>
+                            <div class="station-duration">3-4 weeks</div>
+                        </div>
+                        <div class="station">
+                            <div class="station-dot"></div>
+                            <div class="station-name">Permitting</div>
+                            <div class="station-duration">6-10 weeks</div>
+                        </div>
+                        <div class="station">
+                            <div class="station-dot"></div>
+                            <div class="station-name">Construction</div>
+                            <div class="station-duration">16-20 weeks</div>
+                        </div>
+                        <div class="station">
+                            <div class="station-dot"></div>
+                            <div class="station-name">Finalization</div>
+                            <div class="station-duration">2-3 weeks</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase Details Cards -->
+                <div class="phase-details">
+                    <div class="phase-card">
+                        <div class="phase-number">1</div>
+                        <div class="phase-header">
+                            <h3 class="phase-title">Planning & Feasibility</h3>
+                            <div class="phase-timeline">Weeks 1-3 ✓ Complete</div>
+                        </div>
+                        <ul class="phase-tasks">
+                            <li class="phase-task completed">
+                                <div class="task-check"></div>
+                                <span>Site assessment and measurements</span>
+                            </li>
+                            <li class="phase-task completed">
+                                <div class="task-check"></div>
+                                <span>Zoning review and compliance check</span>
+                            </li>
+                            <li class="phase-task completed">
+                                <div class="task-check"></div>
+                                <span>Initial budget development</span>
+                            </li>
+                        </ul>
+                        <div class="expand-button">View all 7 tasks →</div>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-number">2</div>
+                        <div class="phase-header">
+                            <h3 class="phase-title">Design Development</h3>
+                            <div class="phase-timeline">Weeks 4-7 • In Progress</div>
+                        </div>
+                        <ul class="phase-tasks">
+                            <li class="phase-task completed">
+                                <div class="task-check"></div>
+                                <span>Concept sketches and layouts</span>
+                            </li>
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>3D renderings and visualization</span>
+                            </li>
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>Construction drawings</span>
+                            </li>
+                        </ul>
+                        <div class="expand-button">View all 9 tasks →</div>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-number">3</div>
+                        <div class="phase-header">
+                            <h3 class="phase-title">Permitting & Approvals</h3>
+                            <div class="phase-timeline">Weeks 8-18 • Upcoming</div>
+                        </div>
+                        <ul class="phase-tasks">
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>Submit building permit application</span>
+                            </li>
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>Plan check review process</span>
+                            </li>
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>Address review comments</span>
+                            </li>
+                        </ul>
+                        <div class="expand-button">View all 6 tasks →</div>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-number">4</div>
+                        <div class="phase-header">
+                            <h3 class="phase-title">Construction</h3>
+                            <div class="phase-timeline">Weeks 19-38 • Future</div>
+                        </div>
+                        <ul class="phase-tasks">
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>Foundation and site work</span>
+                            </li>
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>Framing and structural</span>
+                            </li>
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>MEP rough-in</span>
+                            </li>
+                        </ul>
+                        <div class="expand-button">View all 12 tasks →</div>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-number">5</div>
+                        <div class="phase-header">
+                            <h3 class="phase-title">Finalization</h3>
+                            <div class="phase-timeline">Weeks 39-41 • Future</div>
+                        </div>
+                        <ul class="phase-tasks">
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>Final inspections</span>
+                            </li>
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>Certificate of occupancy</span>
+                            </li>
+                            <li class="phase-task">
+                                <div class="task-check"></div>
+                                <span>Move-in preparation</span>
+                            </li>
+                        </ul>
+                        <div class="expand-button">View all 5 tasks →</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Milestones -->
+            <section id="timeline-milestones" class="milestones-section">
+                <div class="section-header">
+                    <div class="section-icon">🏁</div>
+                    <h2 class="section-title">Key Milestones</h2>
+                </div>
+
+                <div class="milestones-timeline">
+                    <div class="milestone completed">
+                        <div class="milestone-marker">📋</div>
+                        <div class="milestone-content">
+                            <h3 class="milestone-title">Project Kickoff</h3>
+                            <div class="milestone-date">
+                                <input type="date" class="date-input" value="2025-01-01" disabled>
+                                <div class="reminder-toggle">
+                                    <span>Email reminder</span>
+                                    <div class="reminder-switch"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="milestone">
+                        <div class="milestone-marker">✏️</div>
+                        <div class="milestone-content">
+                            <h3 class="milestone-title">Design Approval</h3>
+                            <div class="milestone-date">
+                                <input type="date" class="date-input" value="2025-02-15">
+                                <div class="reminder-toggle active">
+                                    <span>Email reminder</span>
+                                    <div class="reminder-switch"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="milestone">
+                        <div class="milestone-marker">🏛️</div>
+                        <div class="milestone-content">
+                            <h3 class="milestone-title">Permit Approval</h3>
+                            <div class="milestone-date">
+                                <input type="date" class="date-input" value="2025-04-30">
+                                <div class="reminder-toggle active">
+                                    <span>Email reminder</span>
+                                    <div class="reminder-switch"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="milestone">
+                        <div class="milestone-marker">🏗️</div>
+                        <div class="milestone-content">
+                            <h3 class="milestone-title">Construction Start</h3>
+                            <div class="milestone-date">
+                                <input type="date" class="date-input" value="2025-05-15">
+                                <div class="reminder-toggle">
+                                    <span>Email reminder</span>
+                                    <div class="reminder-switch"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="milestone">
+                        <div class="milestone-marker">🎉</div>
+                        <div class="milestone-content">
+                            <h3 class="milestone-title">Project Completion</h3>
+                            <div class="milestone-date">
+                                <input type="date" class="date-input" value="2025-09-30">
+                                <div class="reminder-toggle active">
+                                    <span>Email reminder</span>
+                                    <div class="reminder-switch"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Duration Summary -->
+            <section id="timeline-duration" class="duration-section">
+                <div class="section-header">
+                    <div class="section-icon">⏱️</div>
+                    <h2 class="section-title">Timeline Scenarios</h2>
+                </div>
+
+                <div class="scenario-cards">
+                    <div class="scenario-card best">
+                        <div class="scenario-icon">🚀</div>
+                        <div class="scenario-duration">5 Months</div>
+                        <div class="scenario-label">Best Case</div>
+                        <div class="scenario-factors">
+                            • Fast-track permitting<br>
+                            • No weather delays<br>
+                            • Experienced team<br>
+                            • No change orders
+                        </div>
+                    </div>
+
+                    <div class="scenario-card typical">
+                        <div class="scenario-icon">📊</div>
+                        <div class="scenario-duration">7 Months</div>
+                        <div class="scenario-label">Most Likely</div>
+                        <div class="scenario-factors">
+                            • Standard permitting<br>
+                            • Minor revisions<br>
+                            • Typical weather<br>
+                            • Small adjustments
+                        </div>
+                    </div>
+
+                    <div class="scenario-card worst">
+                        <div class="scenario-icon">🐌</div>
+                        <div class="scenario-duration">10 Months</div>
+                        <div class="scenario-label">Conservative</div>
+                        <div class="scenario-factors">
+                            • Complex approvals<br>
+                            • Weather delays<br>
+                            • Material shortages<br>
+                            • Design changes
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weather-impact">
+                    <div class="weather-icon">☔</div>
+                    <div class="weather-content">
+                        <h3 class="weather-title">Weather Considerations for Salem, MA</h3>
+                        <p class="weather-text">
+                            Winter construction (Dec-Mar) may add 2-4 weeks due to snow and freezing temperatures. 
+                            Spring start (Apr-May) offers ideal conditions for foundation work. 
+                            Consider scheduling interior work during winter months.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Permitting Timeline -->
+            <section id="timeline-permits" class="permitting-section">
+                <div class="section-header">
+                    <div class="section-icon">🏛️</div>
+                    <h2 class="section-title">Salem Permitting Timeline</h2>
+                </div>
+
+                <div class="permit-comparison">
+                    <div class="permit-track fast">
+                        <span class="track-badge">Fast Track</span>
+                        <h3 class="track-title">ADU Streamlined Process</h3>
+                        <ul class="permit-steps">
+                            <li class="permit-step">
+                                <span class="step-duration">1 week</span>
+                                <span class="step-name">Pre-application meeting</span>
+                            </li>
+                            <li class="permit-step">
+                                <span class="step-duration">2 weeks</span>
+                                <span class="step-name">Plan check intake</span>
+                            </li>
+                            <li class="permit-step">
+                                <span class="step-duration">3 weeks</span>
+                                <span class="step-name">Ministerial review</span>
+                            </li>
+                            <li class="permit-step">
+                                <span class="step-duration">1 week</span>
+                                <span class="step-name">Permit issuance</span>
+                            </li>
+                        </ul>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                            <strong>Total: 6-8 weeks</strong>
+                        </div>
+                    </div>
+
+                    <div class="permit-track standard">
+                        <span class="track-badge">Standard</span>
+                        <h3 class="track-title">Traditional Process</h3>
+                        <ul class="permit-steps">
+                            <li class="permit-step">
+                                <span class="step-duration">2 weeks</span>
+                                <span class="step-name">Initial submission</span>
+                            </li>
+                            <li class="permit-step">
+                                <span class="step-duration">4 weeks</span>
+                                <span class="step-name">First plan check</span>
+                            </li>
+                            <li class="permit-step">
+                                <span class="step-duration">2 weeks</span>
+                                <span class="step-name">Corrections</span>
+                            </li>
+                            <li class="permit-step">
+                                <span class="step-duration">3 weeks</span>
+                                <span class="step-name">Final review</span>
+                            </li>
+                        </ul>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                            <strong>Total: 10-12 weeks</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dependencies -->
+            <section id="timeline-dependencies" class="dependencies-section">
+                <div class="section-header">
+                    <div class="section-icon">🔗</div>
+                    <h2 class="section-title">Project Dependencies</h2>
+                </div>
+
+                <div class="dependency-diagram">
+                    <div class="dependency-chains">
+                        <div class="dep-chain">
+                            <h4 style="text-align: center; margin-bottom: 1rem; font-weight: 600;">Critical Path</h4>
+                            <div class="dep-item critical">
+                                <div class="bottleneck-badge">!</div>
+                                <div class="dep-title">Design Approval</div>
+                                <div class="dep-duration">3 weeks</div>
+                                <div class="dep-arrow"></div>
+                            </div>
+                            <div class="dep-item critical">
+                                <div class="dep-title">Permit Submission</div>
+                                <div class="dep-duration">1 week</div>
+                                <div class="dep-arrow"></div>
+                            </div>
+                            <div class="dep-item critical">
+                                <div class="bottleneck-badge">!</div>
+                                <div class="dep-title">Plan Check</div>
+                                <div class="dep-duration">6 weeks</div>
+                                <div class="dep-arrow"></div>
+                            </div>
+                            <div class="dep-item">
+                                <div class="dep-title">Construction Start</div>
+                                <div class="dep-duration">16 weeks</div>
+                            </div>
+                        </div>
+
+                        <div class="dep-chain">
+                            <h4 style="text-align: center; margin-bottom: 1rem; font-weight: 600;">Parallel Tasks</h4>
+                            <div class="dep-item parallel">
+                                <div class="dep-title">Site Survey</div>
+                                <div class="dep-duration">1 week</div>
+                            </div>
+                            <div class="dep-item parallel">
+                                <div class="dep-title">Soil Testing</div>
+                                <div class="dep-duration">2 weeks</div>
+                            </div>
+                            <div class="dep-item parallel">
+                                <div class="dep-title">Contractor Selection</div>
+                                <div class="dep-duration">3 weeks</div>
+                            </div>
+                            <div class="dep-item parallel">
+                                <div class="dep-title">Material Selection</div>
+                                <div class="dep-duration">2 weeks</div>
+                            </div>
+                        </div>
+
+                        <div class="dep-chain">
+                            <h4 style="text-align: center; margin-bottom: 1rem; font-weight: 600;">Pre-Construction</h4>
+                            <div class="dep-item">
+                                <div class="dep-title">Financing Approval</div>
+                                <div class="dep-duration">4 weeks</div>
+                            </div>
+                            <div class="dep-item">
+                                <div class="dep-title">Insurance Setup</div>
+                                <div class="dep-duration">1 week</div>
+                            </div>
+                            <div class="dep-item">
+                                <div class="dep-title">Utility Coordination</div>
+                                <div class="dep-duration">2 weeks</div>
+                            </div>
+                            <div class="dep-item">
+                                <div class="dep-title">Site Preparation</div>
+                                <div class="dep-duration">1 week</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task Generator -->
+            <section class="task-generator">
+                <div class="section-header">
+                    <div class="section-icon">📋</div>
+                    <h2 class="section-title">Your Personalized Task List</h2>
+                </div>
+
+                <div class="task-actions">
+                    <button class="action-button">
+                        <span>📥</span>
+                        <span>Export to Calendar</span>
+                    </button>
+                    <button class="action-button secondary">
+                        <span>📧</span>
+                        <span>Email Task List</span>
+                    </button>
+                    <button class="action-button secondary">
+                        <span>🖨️</span>
+                        <span>Print Checklist</span>
+                    </button>
+                    <button class="action-button secondary">
+                        <span>👥</span>
+                        <span>Assign Team Members</span>
+                    </button>
+                </div>
+
+                <div class="generated-tasks">
+                    <div class="task-group">
+                        <h3 class="task-group-header">
+                            <span>This Week</span>
+                            <span class="task-count">4 tasks</span>
+                        </h3>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <div class="task-checkbox"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Review and approve final floor plans</div>
+                                    <div class="task-meta">
+                                        <span>Due: Feb 2</span>
+                                        <div class="task-assignee">
+                                            <div class="assignee-avatar">YO</div>
+                                            <span>You</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="task-item">
+                                <div class="task-checkbox"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Schedule structural engineer consultation</div>
+                                    <div class="task-meta">
+                                        <span>Due: Feb 3</span>
+                                        <div class="task-assignee">
+                                            <div class="assignee-avatar">DC</div>
+                                            <span>Designer</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="task-item">
+                                <div class="task-checkbox"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Select exterior materials and colors</div>
+                                    <div class="task-meta">
+                                        <span>Due: Feb 4</span>
+                                        <div class="task-assignee">
+                                            <div class="assignee-avatar">YO</div>
+                                            <span>You</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="task-item">
+                                <div class="task-checkbox"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Submit deposit for construction drawings</div>
+                                    <div class="task-meta">
+                                        <span>Due: Feb 5</span>
+                                        <div class="task-assignee">
+                                            <div class="assignee-avatar">YO</div>
+                                            <span>You</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="task-group">
+                        <h3 class="task-group-header">
+                            <span>Next Week</span>
+                            <span class="task-count">3 tasks</span>
+                        </h3>
+                        <ul class="task-list">
+                            <li class="task-item">
+                                <div class="task-checkbox"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Review structural calculations</div>
+                                    <div class="task-meta">
+                                        <span>Due: Feb 8</span>
+                                        <div class="task-assignee">
+                                            <div class="assignee-avatar">SE</div>
+                                            <span>Engineer</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="task-item">
+                                <div class="task-checkbox"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Finalize electrical and plumbing layouts</div>
+                                    <div class="task-meta">
+                                        <span>Due: Feb 10</span>
+                                        <div class="task-assignee">
+                                            <div class="assignee-avatar">DC</div>
+                                            <span>Designer</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="task-item">
+                                <div class="task-checkbox"></div>
+                                <div class="task-content">
+                                    <div class="task-title">Prepare permit application documents</div>
+                                    <div class="task-meta">
+                                        <span>Due: Feb 12</span>
+                                        <div class="task-assignee">
+                                            <div class="assignee-avatar">PM</div>
+                                            <span>Project Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Overview -->
+            <section class="progress-overview">
+                <div style="position: relative; display: inline-block;">
+                    <svg class="progress-ring" viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="90" class="progress-ring-bg"></circle>
+                        <circle cx="100" cy="100" r="90" class="progress-ring-fill"></circle>
+                    </svg>
+                    <div class="progress-percentage">35%</div>
+                </div>
+                <p class="progress-message">You're making great progress! Design phase is nearly complete.</p>
+            </section>
+
+            <!-- Task Management Section -->
+            <section id="timeline-tasks" class="tasks-section">
+                <div class="section-header">
+                    <div class="section-icon">✅</div>
+                    <h2 class="section-title">Your Task Dashboard</h2>
+                </div>
+                
+                <div class="task-summary">
+                    <div class="summary-stat">
+                        <div class="stat-number">27</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">In Progress</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Overdue</div>
+                    </div>
+                </div>
+                
+                <div class="current-tasks">
+                    <h3>This Week's Focus</h3>
+                    <div class="task-list">
+                        <div class="task-item in-progress">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">Review final design plans</div>
+                                <div class="task-meta">Due tomorrow • Design Phase</div>
+                            </div>
+                            <span class="task-priority high">High</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">Schedule pre-application meeting</div>
+                                <div class="task-meta">Due Friday • Permitting Phase</div>
+                            </div>
+                            <span class="task-priority medium">Medium</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"></div>
+                            <div class="task-content">
+                                <div class="task-title">Get neighbor sign-offs</div>
+                                <div class="task-meta">Due next week • Planning Phase</div>
+                            </div>
+                            <span class="task-priority low">Low</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-navigation">
+        <button class="bottom-nav-btn" onclick="switchCategory('timeline', 'prev')">
+            <span class="material-icons">arrow_back</span>
+            Previous Category
+        </button>
+        <button class="bottom-nav-btn center" onclick="scrollToTop()">
+            <span class="material-icons">arrow_upward</span>
+            Back to Top
+        </button>
+        <button class="bottom-nav-btn" onclick="switchCategory('goals', 'next')">
+            Next Category
+            <span class="material-icons">arrow_forward</span>
+        </button>
+    </div>
+</div>

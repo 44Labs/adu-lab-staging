@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADU Lab Application</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --border-color: #dadce0;
+            --accent-primary: #1a73e8;
+            --accent-active-bg: #e8f0fe;
+            --font-sans: 'Roboto', sans-serif;
+            --font-display: 'Google Sans', sans-serif;
+            --font-brand: 'Montserrat', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden; /* Prevent scrolling on the body */
+            height: 100vh;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 24px;
+            gap: 24px;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px;
+            flex-shrink: 0;
+        }
+        
+        .logo {
+            font-family: var(--font-brand);
+            font-size: 20px; 
+            font-weight: 600; 
+            padding: 0 16px;
+            color: var(--text-primary);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            margin-left: 24px;
+        }
+        
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-primary);
+            background-color: var(--accent-active-bg);
+        }
+        
+        .nav-link.active {
+            color: var(--accent-primary);
+            background-color: var(--accent-active-bg);
+            font-weight: 700;
+        }
+        
+        .header-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-right: 8px;
+        }
+        
+        .header-actions .material-icons {
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-image: url('https://placehold.co/40x40/1a73e8/ffffff?text=A');
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        .main-content-area {
+            flex-grow: 1;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--surface-color);
+        }
+
+        .page-view {
+            display: none;
+            height: 100%;
+            overflow-y: auto;
+            padding: 32px;
+        }
+        
+        .page-view.active {
+            display: block;
+        }
+        
+        .placeholder-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        .placeholder-content .material-icons {
+            font-size: 64px;
+            margin-bottom: 16px;
+            color: var(--border-color);
+        }
+        .placeholder-content h1 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">ADU Lab</div>
+            <nav class="main-nav">
+                <a href="#" class="nav-link" data-page="dash">Dash</a>
+                <a href="#" class="nav-link active" data-page="studio">Studio</a>
+                <a href="#" class="nav-link" data-page="hub">Hub</a>
+                <a href="#" class="nav-link" data-page="lens">Lens</a>
+                <a href="#" class="nav-link" data-page="learn">Learn</a>
+            </nav>
+            <div class="header-actions">
+                <span class="material-icons">search</span>
+                <span class="material-icons">notifications</span>
+                <span class="material-icons">settings</span>
+                <div class="user-avatar"></div>
+            </div>
+        </header>
+
+        <main class="main-content-area">
+            <div id="dash-page" class="page-view">
+                <div class="placeholder-content">
+                    <span class="material-icons">auto_awesome</span>
+                    <h1>Dash AI Command Center</h1>
+                    <p>The Pro+ Studio experience will be built here.</p>
+                </div>
+            </div>
+            <div id="studio-page" class="page-view active">
+                <div class="placeholder-content">
+                    <span class="material-icons">dashboard</span>
+                    <h1>Studio Dashboard</h1>
+                    <p>The main project snapshot for paid users will be built here.</p>
+                </div>
+            </div>
+            <div id="hub-page" class="page-view">
+                <div class="placeholder-content">
+                    <span class="material-icons">folder_open</span>
+                    <h1>Project Hub</h1>
+                    <p>The project filing cabinet for reports and briefs will be built here.</p>
+                </div>
+            </div>
+            <div id="lens-page" class="page-view">
+                <div class="placeholder-content">
+                    <span class="material-icons">build</span>
+                    <h1>Lens Toolbox</h1>
+                    <p>The interactive project management tools will be built here.</p>
+                </div>
+            </div>
+            <div id="learn-page" class="page-view">
+                <div class="placeholder-content">
+                    <span class="material-icons">school</span>
+                    <h1>Learn Center</h1>
+                    <p>The educational resources for Pro+ users will be built here.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageViews = document.querySelectorAll('.page-view');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const pageId = link.dataset.page;
+
+                    // Update active link
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    link.classList.add('active');
+
+                    // Update active page view
+                    pageViews.forEach(pageView => {
+                        pageView.classList.toggle('active', pageView.id === `${pageId}-page`);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

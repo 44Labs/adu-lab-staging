@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADU Lab Application - Studio V2 Interactive</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* ADU Lab Brand Colors */
+            --bg-gradient-start: #f4f7fc;
+            --bg-gradient-end: #e9ecf2;
+            --surface-color: #ffffff;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --border-color: #e0e0e0;
+            --accent-primary: #1a73e8;
+            --accent-active-bg: #e8f0fe;
+            --success: #188038;
+            --warning: #f9ab00;
+            --danger: #d93025;
+            --font-sans: 'Google Sans', 'Roboto', sans-serif;
+            --font-brand: 'Montserrat', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-image: linear-gradient(to bottom right, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-primary);
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 24px;
+            gap: 24px;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 8px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-family: var(--font-brand);
+            font-size: 20px; 
+            font-weight: 600; 
+            padding: 0 16px;
+            color: var(--text-primary);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            margin-left: 24px;
+        }
+        
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .nav-link.active {
+            color: var(--accent-primary);
+            background-color: var(--surface-color);
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        
+        .header-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding-right: 8px;
+        }
+        
+        .header-actions .material-icons { color: var(--text-secondary); cursor: pointer; }
+        
+        .user-avatar {
+            width: 32px; height: 32px; border-radius: 50%;
+            background-color: var(--accent-primary);
+            color: white;
+            display: flex; align-items: center; justify-content: center; font-weight: 500;
+            cursor: pointer;
+        }
+
+        .main-content-area { flex-grow: 1; overflow: hidden; }
+        .page-view { display: none; height: 100%; overflow: hidden; }
+        .page-view.active { display: block; }
+        
+        /* --- Studio V2 Dashboard Styles --- */
+        .studio-v2-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr 320px;
+            grid-template-rows: 1fr;
+            gap: 24px;
+            height: 100%;
+        }
+
+        .studio-v2-layout .card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: card-fade-in 0.5s forwards;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @keyframes card-fade-in {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .studio-v2-layout .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
+        .card-title { font-size: 18px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .card-action { color: var(--text-secondary); cursor: pointer; }
+
+        .left-col { animation-delay: 0.1s; }
+        .center-col-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .center-col-wrapper > .card { animation-delay: 0.2s; }
+        .center-col-wrapper > .report-info-bar { animation-delay: 0.4s; }
+        .center-col-wrapper > .ai-insight-card { animation-delay: 0.3s; }
+        .right-col { animation-delay: 0.5s; }
+        
+        /* Activity Hub (Tabs) */
+        .activity-hub .tab-nav { display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 16px; }
+        .activity-hub .tab-btn { padding: 8px 12px; cursor: pointer; font-weight: 500; color: var(--text-secondary); border: none; background: none; border-bottom: 2px solid transparent; }
+        .activity-hub .tab-btn.active { color: var(--accent-primary); border-bottom-color: var(--accent-primary); }
+        .activity-hub .tab-content { display: none; }
+        .activity-hub .tab-content.active { display: block; }
+        .action-list { list-style: none; padding: 0; }
+        .action-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+        .action-item:last-child { border-bottom: none; }
+        .action-checkbox { width: 18px; height: 18px; border: 2px solid #bdc1c6; border-radius: 50%; cursor: pointer; flex-shrink: 0; }
+        .action-title { font-size: 14px; }
+        .action-meta { font-size: 12px; color: var(--text-secondary); }
+        .priority-high { color: var(--danger); font-weight: 500; }
+        .timeline-item { display: flex; gap: 12px; padding: 10px 0; }
+        .timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border-color); margin-top: 5px; }
+        .timeline-dot.completed { background: var(--success); }
+        .timeline-dot.current { background: var(--accent-primary); }
+
+        /* SPAR SCALE V2 */
+        .spar-main { display: flex; align-items: flex-start; gap: 24px; margin-bottom: 24px; }
+        .score-display-column .score-section { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+        .score-number { font-size: 56px; font-weight: 500; line-height: 1; }
+        .score-total { font-size: 24px; font-weight: 400; color: var(--text-secondary); }
+        .description { font-size: 15px; color: var(--text-secondary); display: flex; align-items: center; }
+        .details-column { flex: 1; padding-top: 8px; }
+        .spar-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .metric-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 4px; }
+        .metric-value { font-size: 16px; font-weight: 500; }
+        .metric-change { font-size: 12px; margin-left: 8px; color: var(--success); }
+        .pulse-indicator { width: 100%; height: 24px; position: relative; overflow: hidden; background: #f1f3f4; border-radius: 12px; }
+        .pulse-bar { position: absolute; top: 50%; transform: translateY(-50%); width: 100%; height: 2px; background: linear-gradient(90deg, transparent 0%, transparent 20%, var(--accent-primary) 35%, var(--accent-primary) 65%, transparent 80%, transparent 100%); animation: pulseMove 1.8s linear infinite; }
+        @keyframes pulseMove { from { transform: translateX(-100%) translateY(-50%); } to { transform: translateX(100%) translateY(-50%); } }
+        .ai-badge { display: inline-flex; align-items: center; gap: 4px; background: #e8f0fe; color: var(--accent-primary); padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background-color 0.2s; }
+        .ai-badge:hover { background: #d2e3fc; }
+        .ai-badge .material-icons { font-size: 16px; }
+        .grade-pill { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 16px; font-weight: 500; margin-right: 8px; }
+        .grade-pill.grade-a { background-color: #e6f4ea; color: var(--success); }
+        .grade-pill.grade-b { background-color: #e8f0fe; color: var(--accent-primary); }
+        .grade-pill.grade-c { background-color: #feefc3; color: var(--warning); }
+        .grade-pill.grade-d { background-color: #fce8e6; color: var(--danger); }
+
+        /* Report Info Bar */
+        .report-info-bar { 
+            display: flex; 
+            background: #f8f9fa; 
+            border: 1px solid var(--border-color);
+            border-radius: 16px; 
+            padding: 16px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: card-fade-in 0.5s forwards;
+        }
+        .info-item { flex: 1; text-align: center; }
+        .info-label { font-size: 12px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 4px; letter-spacing: 0.5px; }
+        .info-value { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+
+        /* AI Insight V2 - FUTURISTIC REDESIGN */
+        .ai-insight-card {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .ai-insight-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: rotateGlow 10s linear infinite;
+        }
+        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        .ai-insight-card .card-header { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 16px; margin-bottom: 16px; }
+        .ai-insight-card .card-title { color: white; }
+        .ai-insight-card .date-time { text-align: right; }
+        .ai-insight-card .date { font-size: 13px; opacity: 0.8; }
+        .ai-insight-card .time { font-size: 13px; font-weight: 500; }
+        .ai-insight-card .ai-title-icon { color: var(--accent-primary); cursor: pointer; }
+
+        .ai-insight-v2 { display: flex; align-items: center; gap: 20px; }
+        .ai-insight-v2 p { margin: 0; line-height: 1.6; opacity: 0.9; }
+        .ai-insight-v2 .loading-text {
+            opacity: 0.7;
+            animation: pulse-text 1.5s infinite ease-in-out;
+        }
+        @keyframes pulse-text { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+
+        /* Key Metrics V2 */
+        .key-metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .metric-item .widget-value { font-size: 28px; font-weight: 500; }
+        .metric-item .widget-subtitle { font-size: 13px; color: var(--text-secondary); }
+        .metric-item .widget-progress { height: 5px; background: #f0f0f0; border-radius: 999px; margin-top: 12px; overflow: hidden; }
+        .metric-item .progress-fill { height: 100%; background: var(--accent-primary); width: 0; transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+        
+        /* Project Brief (Right Col) */
+        .project-brief .project-name { font-size: 22px; font-weight: 500; }
+        .project-brief .project-address { color: var(--text-secondary); margin-bottom: 16px; }
+        .brief-section { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+        .brief-section:last-child { border-bottom: none; padding-bottom: 0;}
+        .brief-section-title { font-size: 14px; font-weight: 500; margin-bottom: 12px; }
+        .doc-item { display: flex; align-items: center; gap: 12px; padding: 4px 0; }
+        .doc-icon { color: var(--accent-primary); }
+        
+        /* Focus Mode Toggle */
+        .focus-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .focus-toggle .material-icons { font-size: 20px; }
+        .switch { position: relative; display: inline-block; width: 36px; height: 20px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--accent-primary); }
+        input:checked + .slider:before { transform: translateX(16px); }
+
+        /* Focus Mode Styles */
+        .studio-v2-layout.focus-mode .left-col,
+        .studio-v2-layout.focus-mode .right-col {
+            opacity: 0.3;
+            transform: scale(0.98) translateY(0);
+        }
+        .studio-v2-layout.focus-mode .center-col-wrapper > * {
+            transform: scale(1.02);
+        }
+
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; animation: fadeIn 0.3s ease; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: var(--surface-color); border-radius: 16px; padding: 24px; max-width: 700px; width: 90%; animation: slideUp 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); margin-bottom: 16px; }
+        .modal-title { font-size: 20px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .modal-close { background: none; border: none; cursor: pointer; color: var(--text-secondary); }
+        .specs-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        .specs-table th, .specs-table td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border-color); font-size: 14px; }
+        .specs-table th { font-weight: 500; color: var(--text-secondary); }
+        .specs-table td:first-child { font-weight: 500; }
+        .color-chip { display: inline-block; width: 16px; height: 16px; border-radius: 4px; vertical-align: middle; margin-right: 8px; border: 1px solid rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">ADU Lab</div>
+            <nav class="main-nav">
+                <a href="#" class="nav-link" data-page="dash">Dash</a>
+                <a href="#" class="nav-link active" data-page="studio">Studio</a>
+                <a href="#" class="nav-link" data-page="hub">Hub</a>
+                <a href="#" class="nav-link" data-page="lens">Lens</a>
+                <a href="#" class="nav-link" data-page="learn">Learn</a>
+            </nav>
+            <div class="header-actions">
+                <div class="focus-toggle">
+                    <span class="material-icons">center_focus_strong</span>
+                    <label class="switch">
+                        <input type="checkbox" id="focus-mode-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <span class="material-icons">search</span>
+                <span class="material-icons">notifications</span>
+                <div class="user-avatar">A</div>
+            </div>
+        </header>
+
+        <main class="main-content-area">
+            <div id="studio-page" class="page-view active">
+                <div class="studio-v2-layout">
+                    <div class="card left-col">
+                         <div class="project-brief">
+                             <div class="card-header"><h3 class="card-title"><span class="material-icons">business_center</span>Project Brief</h3><span class="material-icons card-action">edit</span></div>
+                             <h2 class="project-name">Maple Street ADU</h2>
+                             <p class="project-address">123 Maple St, Salem, MA</p>
+                             <div class="brief-section">
+                                <h4 class="brief-section-title">Key Metrics</h4>
+                                <div class="key-metrics-grid">
+                                    <div class="metric-item">
+                                        <div class="widget-value">$127K</div><div class="widget-subtitle">Budget Used</div>
+                                        <div class="widget-progress"><div class="progress-fill" data-progress="88"></div></div>
+                                    </div>
+                                    <div class="metric-item">
+                                        <div class="widget-value">68%</div><div class="widget-subtitle">Complete</div>
+                                        <div class="widget-progress"><div class="progress-fill" data-progress="68"></div></div>
+                                    </div>
+                                    <div class="metric-item">
+                                        <div class="widget-value">Apr '26</div><div class="widget-subtitle">Est. Finish</div>
+                                        <div class="widget-progress"><div class="progress-fill" data-progress="68"></div></div>
+                                    </div>
+                                </div>
+                             </div>
+                             <div class="brief-section">
+                                <h4 class="brief-section-title">Key Documents</h4>
+                                <div class="doc-item"><span class="material-icons doc-icon">description</span><p>Architectural Plans v2</p></div>
+                                <div class="doc-item"><span class="material-icons doc-icon">description</span><p>Contractor Agreement</p></div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="center-col-wrapper">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">SPAR SCALE™</h3>
+                                <div class="ai-badge" onclick="openSparModal()"><span class="material-icons">auto_awesome</span>AI Generated</div>
+                            </div>
+                            <div class="spar-main">
+                                <div class="score-display-column">
+                                    <div class="score-section">
+                                        <span class="score-number" id="spar-score">0</span>
+                                        <span class="score-total">/ 100</span>
+                                    </div>
+                                    <div class="description">
+                                        <span class="grade-pill">B+</span>
+                                        <span class="description-text">Very Good</span>
+                                    </div>
+                                </div>
+                                <div class="details-column">
+                                    <div class="spar-metrics">
+                                        <div>
+                                            <div class="metric-label">Score Change</div>
+                                            <div class="metric-value">+3 pts <span class="metric-change">↗ 4.2%</span></div>
+                                        </div>
+                                        <div>
+                                            <div class="metric-label">Risk Level</div>
+                                            <div class="metric-value">Low <span class="metric-change">↓ Improved</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pulse-indicator">
+                                <div class="pulse-bar"></div>
+                            </div>
+                        </div>
+                        <div class="card ai-insight-card">
+                             <div class="card-header">
+                                <h3 class="card-title">✨ Daily AI Insight <span class="material-icons ai-title-icon" onclick="openAiInsightModal()">auto_awesome</span></h3>
+                                <div class="date-time">
+                                    <div class="date" id="ai-date"></div>
+                                    <div class="time" id="ai-time"></div>
+                                </div>
+                             </div>
+                             <div class="ai-insight-v2">
+                                <p id="ai-insight-text" class="loading-text">Generating today's insight...</p>
+                            </div>
+                        </div>
+                        <div class="report-info-bar">
+                            <div class="info-item"><div class="info-label">Location</div><div class="info-value">Salem, MA</div></div>
+                            <div class="info-item"><div class="info-label">Report Date</div><div class="info-value">July 23, 2025</div></div>
+                            <div class="info-item"><div class="info-label">Report ID</div><div class="info-value">XYZ-123</div></div>
+                            <div class="info-item"><div class="info-label">Plan</div><div class="info-value">Tier 3</div></div>
+                        </div>
+                    </div>
+                    <div class="card right-col">
+                        <div class="activity-hub">
+                            <div class="card-header" style="margin-bottom: 0;"><h3 class="card-title">Activity Hub</h3></div>
+                            <nav class="tab-nav">
+                                <button class="tab-btn active" data-tab="actions">Priority Actions</button>
+                                <button class="tab-btn" data-tab="activity">Recent Activity</button>
+                            </nav>
+                            <div class="tab-content active" data-tab-content="actions">
+                                <ul class="action-list">
+                                    <li class="action-item"><div class="action-checkbox"></div><div class="action-content"><div class="action-title">Submit permit application</div><div class="action-meta"><span class="priority-high">High</span> • Due Tomorrow</div></div></li>
+                                    <li class="action-item"><div class="action-checkbox"></div><div class="action-content"><div class="action-title">Review contractor proposals</div><div class="action-meta">Due: Friday</div></div></li>
+                                </ul>
+                            </div>
+                            <div class="tab-content" data-tab-content="activity">
+                                <div class="timeline-item"><div class="timeline-dot completed"></div><div class="action-content"><div class="action-title">Site Survey Completed</div><div class="action-meta">Yesterday</div></div></div>
+                                <div class="timeline-item"><div class="timeline-dot current"></div><div class="action-content"><div class="action-title">Permit App Submitted</div><div class="action-meta">Today</div></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Other page placeholders -->
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="sparModal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 class="modal-title"><span class="material-icons">auto_awesome</span>About the SPAR SCALE™</h2><button class="modal-close" onclick="closeSparModal()"><span class="material-icons">close</span></button></div>
+            <p>The SPAR SCALE™ (Strategic Planning & AI Roadmap) score is a proprietary metric that assesses the viability of your project based on dozens of factors, including zoning regulations, property characteristics, market data, and construction costs.</p>
+            <p>A higher score indicates a more straightforward path to completion with lower risk and higher potential return on investment. The pulse bar provides a "living" representation of this score.</p>
+            <table class="specs-table"><thead><tr><th>Grade</th><th>Score Range</th><th>Pulse Color</th><th>Speed / Intensity</th></tr></thead><tbody><tr><td>A+ / A</td><td>85-100</td><td><span class="color-chip" style="background: var(--success);"></span>Success Green</td><td>Fast / High</td></tr><tr><td>B+ / B</td><td>70-84</td><td><span class="color-chip" style="background: var(--accent-primary);"></span>Accent Blue</td><td>Moderate / Medium</td></tr><tr><td>C</td><td>60-69</td><td><span class="color-chip" style="background: var(--warning);"></span>Warning Yellow</td><td>Slow / Low</td></tr><tr><td>D / F</td><td>0-59</td><td><span class="color-chip" style="background: var(--danger);"></span>Danger Red</td><td>Very Slow / Faint</td></tr></tbody></table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="aiInsightModal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 class="modal-title"><span class="material-icons" style="color: var(--accent-primary);">auto_awesome</span>About this Summary</h2><button class="modal-close" onclick="closeAiInsightModal()"><span class="material-icons">close</span></button></div>
+            <p style="line-height: 1.6; color: var(--text-secondary);">This summary was generated by ADU Lab's AI, powered by Google. It analyzes your inputs against a vast dataset of zoning laws, construction costs, and market trends to provide a personalized feasibility overview.</p>
+            <p style="line-height: 1.6; color: var(--text-secondary); margin-top: 16px;">This content is for informational purposes and to help guide your decision-making process.</p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Navigation Logic ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageViews = document.querySelectorAll('.page-view');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.dataset.page;
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    link.classList.add('active');
+                    pageViews.forEach(pageView => {
+                        pageView.classList.toggle('active', pageView.id === `${pageId}-page`);
+                    });
+                });
+            });
+
+            // --- Activity Hub Tabs ---
+            const tabContainer = document.querySelector('.activity-hub');
+            if(tabContainer){
+                const tabBtns = tabContainer.querySelectorAll('.tab-btn');
+                const tabContents = tabContainer.querySelectorAll('.tab-content');
+                tabBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        tabBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const tabId = btn.dataset.tab;
+                        tabContents.forEach(content => {
+                            content.classList.toggle('active', content.dataset.tabContent === tabId);
+                        });
+                    });
+                });
+            }
+
+            // --- Interactive Features ---
+            const focusToggle = document.getElementById('focus-mode-toggle');
+            const layout = document.querySelector('.studio-v2-layout');
+            if(focusToggle && layout) {
+                focusToggle.addEventListener('change', () => {
+                    layout.classList.toggle('focus-mode', focusToggle.checked);
+                });
+            }
+
+            function getGradeInfo(score) {
+                if (score >= 85) return { grade: 'A+', gradeClass: 'grade-a', description: 'Excellent' };
+                if (score >= 70) return { grade: 'B+', gradeClass: 'grade-b', description: 'Very Good' };
+                if (score >= 60) return { grade: 'C', gradeClass: 'grade-c', description: 'Good' };
+                return { grade: 'D', gradeClass: 'grade-d', description: 'Needs Review' };
+            }
+
+            function updateSparDisplay(score) {
+                const gradeInfo = getGradeInfo(score);
+                const gradePill = document.querySelector('.grade-pill');
+                const descriptionText = document.querySelector('.description-text');
+
+                if(gradePill && descriptionText) {
+                    gradePill.textContent = gradeInfo.grade;
+                    gradePill.className = 'grade-pill'; // Reset
+                    gradePill.classList.add(gradeInfo.gradeClass);
+                    descriptionText.textContent = gradeInfo.description;
+                }
+            }
+
+            function animateCountUp(element, finalValue, duration) {
+                let start = 0;
+                const stepTime = Math.abs(Math.floor(duration / finalValue));
+                const timer = setInterval(() => {
+                    start += 1;
+                    element.textContent = start;
+                    if (start >= finalValue) {
+                        clearInterval(timer);
+                        element.textContent = finalValue;
+                    }
+                }, stepTime);
+            }
+            
+            const sparScoreEl = document.getElementById('spar-score');
+            if(sparScoreEl) {
+                 const finalScore = 78;
+                 updateSparDisplay(finalScore);
+                 setTimeout(() => {
+                    animateCountUp(sparScoreEl, finalScore, 1000);
+                 }, 500);
+            }
+
+            function animateProgressBars() {
+                const progressBars = document.querySelectorAll('.progress-fill');
+                progressBars.forEach(bar => {
+                    const progress = bar.dataset.progress;
+                    setTimeout(() => {
+                         bar.style.width = `${progress}%`;
+                    }, 200);
+                });
+            }
+            setTimeout(() => {
+                animateProgressBars();
+            }, 700);
+
+            // --- AI Insight Clock ---
+            function updateTime() {
+                const dateEl = document.getElementById('ai-date');
+                const timeEl = document.getElementById('ai-time');
+                if(!dateEl || !timeEl) return;
+
+                const now = new Date();
+                const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                dateEl.textContent = now.toLocaleDateString('en-US', dateOptions);
+
+                const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                timeEl.textContent = now.toLocaleTimeString('en-US', timeOptions);
+            }
+            updateTime();
+            setInterval(updateTime, 1000);
+
+            // --- Gemini API Integration for Daily Insight ---
+            async function getAIInsight() {
+                const insightTextElement = document.getElementById('ai-insight-text');
+                if (!insightTextElement) return;
+
+                // Simulated project data for the prompt
+                const projectStatus = {
+                    location: "Salem, MA",
+                    progress: "68% complete",
+                    budget: "15% under budget",
+                    timeline: "3 weeks ahead of schedule"
+                };
+
+                const prompt = `You are an expert AI assistant for ADU Lab. A user's project in ${projectStatus.location} is ${projectStatus.progress}, ${projectStatus.budget}, and ${projectStatus.timeline}. Provide a single, concise, and encouraging insight (1-2 sentences) suggesting a next step or consideration.`;
+                
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Per instructions, leave empty
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0]) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        insightTextElement.textContent = text;
+                        insightTextElement.classList.remove('loading-text');
+                    } else {
+                        throw new Error("Unexpected API response structure");
+                    }
+                } catch (error) {
+                    console.error("Gemini API call failed:", error);
+                    insightTextElement.textContent = "Could not generate an insight at this time. Please check back later.";
+                    insightTextElement.classList.remove('loading-text');
+                }
+            }
+
+            getAIInsight();
+
+        });
+
+        // Modal Functions
+        function openSparModal() { document.getElementById('sparModal').classList.add('active'); }
+        function closeSparModal() { document.getElementById('sparModal').classList.remove('active'); }
+        function openAiInsightModal() { document.getElementById('aiInsightModal').classList.add('active'); }
+        function closeAiInsightModal() { document.getElementById('aiInsightModal').classList.remove('active'); }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "name": "ADU Lab - AI-Powered ADU Planning",
+  "short_name": "ADU Lab",
+  "description": "Get instant AI-powered feasibility analysis for your ADU project",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1a73e8",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "screenshots": [
+    {
+      "src": "/assets/images/screenshot-1.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "label": "ADU Assessment"
+    },
+    {
+      "src": "/assets/images/screenshot-2.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "label": "SPAR Score Results"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start Assessment",
+      "url": "/#start-assessment",
+      "description": "Begin a new ADU feasibility assessment"
+    },
+    {
+      "name": "Dashboard",
+      "url": "/app/dashboard.html",
+      "description": "View your ADU projects"
+    }
+  ]
+}

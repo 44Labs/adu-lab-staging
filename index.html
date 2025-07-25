@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADU Lab - AI-Powered ADU Planning Platform | 44 Labs</title>
+    <meta name="description" content="Get instant AI-powered feasibility analysis for your ADU project. Free assessment with detailed reports on zoning, costs, timeline, and design considerations.">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/landing.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a73e8">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-functions-compat.js"></script>
+</head>
+<body>
+    <!-- Landing Page Hero -->
+    <header class="landing-header">
+        <nav class="landing-nav">
+            <div class="logo">
+                <div class="logo-icon">AL</div>
+                <span>ADU Lab</span>
+            </div>
+            <div class="nav-actions">
+                <a href="/sign-in.html" class="btn">Sign In</a>
+                <a href="#start-assessment" class="btn btn-primary">Start Free Assessment</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Is Your Property Ready for an ADU?</h1>
+                    <p class="hero-subtitle">Get instant AI-powered analysis with our free 6-question assessment. Know your project's feasibility in minutes, not months.</p>
+                    <div class="hero-cta">
+                        <button id="start-hero-assessment" class="btn btn-primary btn-lg">
+                            <span class="material-icons">rocket_launch</span>
+                            Start Free Assessment
+                        </button>
+                        <p class="hero-disclaimer">No credit card required • 90-day shareable report</p>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="spar-score-preview">
+                        <div class="score-circle">
+                            <span class="score-number">87</span>
+                            <span class="score-label">SPAR Score™</span>
+                        </div>
+                        <div class="score-breakdown">
+                            <div class="score-item">
+                                <span class="score-letter">S</span>
+                                <span class="score-desc">Site Analysis</span>
+                            </div>
+                            <div class="score-item">
+                                <span class="score-letter">P</span>
+                                <span class="score-desc">Permitting</span>
+                            </div>
+                            <div class="score-item">
+                                <span class="score-letter">A</span>
+                                <span class="score-desc">Architecture</span>
+                            </div>
+                            <div class="score-item">
+                                <span class="score-letter">R</span>
+                                <span class="score-desc">Resources</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Props -->
+        <section class="value-props">
+            <div class="container">
+                <div class="props-grid">
+                    <div class="prop-card">
+                        <div class="prop-icon">
+                            <span class="material-icons">speed</span>
+                        </div>
+                        <h3>Instant Analysis</h3>
+                        <p>Get comprehensive feasibility results in under 2 minutes with our AI-powered assessment.</p>
+                    </div>
+                    <div class="prop-card">
+                        <div class="prop-icon">
+                            <span class="material-icons">analytics</span>
+                        </div>
+                        <h3>SPAR Score™</h3>
+                        <p>Our proprietary scoring system evaluates Site, Permitting, Architecture, and Resources.</p>
+                    </div>
+                    <div class="prop-card">
+                        <div class="prop-icon">
+                            <span class="material-icons">share</span>
+                        </div>
+                        <h3>Shareable Report</h3>
+                        <p>Get a public URL to share with contractors, lenders, and family for 90 days.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assessment Form Section -->
+        <section id="start-assessment" class="assessment-section">
+            <div class="container">
+                <div class="assessment-container">
+                    <h2>Free ADU Feasibility Assessment</h2>
+                    <p class="assessment-intro">Answer 6 quick questions to get your personalized ADU feasibility report.</p>
+                    
+                    <form id="tier1-assessment-form" class="assessment-form">
+                        <!-- Progress Bar -->
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+
+                        <!-- Questions will be dynamically loaded here -->
+                        <div id="assessment-questions" class="questions-container">
+                            <!-- Loading state -->
+                            <div class="loading-state">
+                                <div class="loading-spinner"></div>
+                                <p>Loading assessment...</p>
+                            </div>
+                        </div>
+
+                        <!-- Navigation -->
+                        <div class="form-navigation">
+                            <button type="button" id="prev-btn" class="btn btn-secondary" style="display: none;">
+                                <span class="material-icons">arrow_back</span>
+                                Previous
+                            </button>
+                            <button type="button" id="next-btn" class="btn btn-primary">
+                                Next
+                                <span class="material-icons">arrow_forward</span>
+                            </button>
+                            <button type="submit" id="submit-btn" class="btn btn-primary" style="display: none;">
+                                Get My Report
+                                <span class="material-icons">assessment</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="landing-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">AL</div>
+                        <span>ADU Lab</span>
+                    </div>
+                    <p>Powered by 44 Laboratories</p>
+                </div>
+                <div class="footer-links">
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <a href="mailto:support@adulab.ai">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 44 Laboratories. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase Config -->
+    <script src="/assets/js/firebase-config.js"></script>
+    <!-- Main App -->
+    <script src="/assets/js/app.js"></script>
+    <!-- Assessment Logic -->
+    <script src="/assets/js/assessment.js"></script>
+</body>
+</html>

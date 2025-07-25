@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - ADU Lab</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --border-color: #dadce0;
+            --accent-primary: #1a73e8;
+            --accent-active-bg: #e8f0fe;
+            --error-color: #d93025;
+            --font-sans: 'Roboto', sans-serif;
+            --font-display: 'Google Sans', sans-serif;
+            --font-brand: 'Montserrat', sans-serif;
+        }
+
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .logo { 
+            font-family: var(--font-brand); 
+            font-size: 32px; 
+            font-weight: 600; 
+            text-align: center;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-primary), #1557b0);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        .card-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .card-header h1 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .card-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+        
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: var(--font-sans);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: var(--surface-color);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px var(--accent-active-bg);
+        }
+
+        .btn { 
+            padding: 12px 24px; 
+            border: 1px solid transparent; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 500; 
+            font-size: 15px; 
+            transition: all 0.2s ease; 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: 8px; 
+            width: 100%;
+        }
+        
+        .btn-primary { 
+            background: var(--accent-primary); 
+            color: white; 
+        }
+        .btn-primary:hover { 
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15); 
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-primary);
+            border: 1px solid var(--border-color);
+        }
+        .btn-secondary:hover {
+            background-color: var(--bg-color);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin: 24px 0;
+        }
+        
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+        
+        .divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <div class="logo">
+            <div class="logo-icon">AL</div>
+            ADU Lab
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1>Welcome back</h1>
+                <p>Sign in to access your ADU reports</p>
+            </div>
+            
+            <form id="signInForm">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" required autocomplete="email">
+                    <div id="email-error" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" required autocomplete="current-password">
+                    <div id="password-error" class="error-message"></div>
+                </div>
+                <div id="general-error" class="error-message" style="margin-bottom: 16px;"></div>
+                <button type="submit" id="signInBtn" class="btn btn-primary">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="divider">OR</div>
+
+            <button id="googleSignIn" class="btn btn-secondary">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18" height="18">
+                Continue with Google
+            </button>
+
+            <div class="divider"></div>
+
+            <div style="text-align: center; margin-top: 24px;">
+                <p style="color: var(--text-secondary); font-size: 14px;">
+                    Don't have an account? 
+                    <a href="/" style="color: var(--accent-primary); text-decoration: none;">Start Free Assessment</a>
+                </p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Firebase Config -->
+    <script src="/assets/js/firebase-config.js"></script>
+    
+    <script>
+        const signInForm = document.getElementById('signInForm');
+        const signInBtn = document.getElementById('signInBtn');
+        const googleSignInBtn = document.getElementById('googleSignIn');
+
+        // Handle email/password sign in
+        signInForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.textContent = '';
+                el.classList.remove('show');
+            });
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Disable button and show loading
+            signInBtn.disabled = true;
+            signInBtn.innerHTML = '<span class="spinner"></span> Signing in...';
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                
+                // Check if user has a saved assessment
+                const user = userCredential.user;
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                
+                if (userDoc.exists && userDoc.data().lastAssessmentId) {
+                    // Redirect to their dashboard
+                    window.location.href = '/app/dashboard.html';
+                } else {
+                    // Redirect to home to start assessment
+                    window.location.href = '/?signed-in=true';
+                }
+            } catch (error) {
+                console.error('Sign in error:', error);
+                
+                // Show appropriate error message
+                let errorElement = document.getElementById('general-error');
+                let errorMessage = 'An error occurred. Please try again.';
+
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        errorMessage = 'No account found with this email.';
+                        errorElement = document.getElementById('email-error');
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = 'Incorrect password.';
+                        errorElement = document.getElementById('password-error');
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Please enter a valid email address.';
+                        errorElement = document.getElementById('email-error');
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage = 'Too many failed attempts. Please try again later.';
+                        break;
+                }
+
+                errorElement.textContent = errorMessage;
+                errorElement.classList.add('show');
+
+                // Reset button
+                signInBtn.disabled = false;
+                signInBtn.innerHTML = 'Sign In';
+            }
+        });
+
+        // Handle Google sign in
+        googleSignInBtn.addEventListener('click', async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            
+            try {
+                const result = await auth.signInWithPopup(provider);
+                
+                // Create/update user document
+                await db.collection('users').doc(result.user.uid).set({
+                    email: result.user.email,
+                    displayName: result.user.displayName,
+                    photoURL: result.user.photoURL,
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+
+                // Redirect to dashboard
+                window.location.href = '/app/dashboard.html';
+            } catch (error) {
+                console.error('Google sign in error:', error);
+                
+                const errorElement = document.getElementById('general-error');
+                errorElement.textContent = 'Google sign in failed. Please try again.';
+                errorElement.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>

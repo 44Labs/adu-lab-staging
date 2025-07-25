@@ -1,0 +1,631 @@
+<!-- Category Tabs -->
+<div class="report-category-tabs">
+    <a href="#" class="report-category-tab active" data-category="summary">Summary</a>
+    <a href="#" class="report-category-tab" data-category="financial">Financial</a>
+    <a href="#" class="report-category-tab" data-category="zoning">Zoning</a>
+    <a href="#" class="report-category-tab" data-category="site">Site</a>
+    <a href="#" class="report-category-tab" data-category="design">Design</a>
+    <a href="#" class="report-category-tab" data-category="timeline">Timeline</a>
+    <a href="#" class="report-category-tab" data-category="goals">Goals</a>
+    <a href="#" class="report-category-tab" data-category="impact">Impact</a>
+    <a href="#" class="report-category-tab" data-category="next-steps">Next Steps</a>
+</div>
+
+<!-- SUMMARY CATEGORY (APPROVED) -->
+<div class="report-category-content active" data-category-id="summary">
+    <div class="report-layout">
+        <nav class="report-nav-rail">
+            <a href="#snapshot" class="report-nav-link active">
+                <span class="material-icons">dashboard</span>
+                <span class="label">Snapshot</span>
+            </a>
+            <a href="#findings" class="report-nav-link">
+                <span class="material-icons">fact_check</span>
+                <span class="label">Findings</span>
+            </a>
+            <a href="#tags" class="report-nav-link">
+                <span class="material-icons">label</span>
+                <span class="label">Tags</span>
+            </a>
+            <a href="#metadata" class="report-nav-link">
+                <span class="material-icons">description</span>
+                <span class="label">Meta</span>
+            </a>
+            <a href="#map" class="report-nav-link">
+                <span class="material-icons">map</span>
+                <span class="label">Map</span>
+            </a>
+            <a href="#navigator" class="report-nav-link">
+                <span class="material-icons">explore</span>
+                <span class="label">Navigate</span>
+            </a>
+        </nav>
+
+        <div class="report-content-area">
+            <!-- Project Snapshot Section -->
+            <section id="snapshot" class="report-section fade-in">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">dashboard</span>
+                            Project Snapshot
+                        </h2>
+                    </div>
+
+                    <div class="snapshot-grid">
+                        <!-- SPAR Score -->
+                        <div class="spar-score-container">
+                            <div class="spar-circle">
+                                <svg width="180" height="180">
+                                    <circle cx="90" cy="90" r="80" class="spar-circle-bg"></circle>
+                                    <circle cx="90" cy="90" r="80" class="spar-circle-progress"></circle>
+                                </svg>
+                                <div class="spar-score-text">
+                                    <div class="spar-score-number">78</div>
+                                    <div class="spar-score-label">SPAR SCALE™</div>
+                                </div>
+                            </div>
+                            <div class="spar-grade">Grade A - Excellent</div>
+                        </div>
+
+                        <!-- Key Metrics -->
+                        <div class="key-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">
+                                    <span class="material-icons">check_circle</span>
+                                    Feasibility Verdict
+                                </span>
+                                <span class="metric-value green">Strong Potential</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">
+                                    <span class="material-icons">paid</span>
+                                    Cost Estimate
+                                </span>
+                                <span class="metric-value">$180,000 - $240,000</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">
+                                    <span class="material-icons">schedule</span>
+                                    Timeline
+                                </span>
+                                <span class="metric-value">7 - 12 Months</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">
+                                    <span class="material-icons">directions_car</span>
+                                    Site Access
+                                </span>
+                                <span class="metric-value">Direct Street Access</span>
+                            </div>
+                        </div>
+
+                        <!-- Map Preview -->
+                        <div class="map-preview">
+                            <div class="map-placeholder">
+                                <span class="material-icons">map</span>
+                                <p>Salem, MA Property Map</p>
+                                <small>42.5195° N, 70.8967° W</small>
+                            </div>
+                        </div>
+
+                        <!-- Quick Flags -->
+                        <div class="quick-flags">
+                            <div class="flag-item">
+                                <span class="material-icons">check_circle</span>
+                                Flood Zone X (minimal risk)
+                            </div>
+                            <div class="flag-item">
+                                <span class="material-icons">check_circle</span>
+                                No HOA restrictions
+                            </div>
+                            <div class="flag-item">
+                                <span class="material-icons">check_circle</span>
+                                24-foot driveway access
+                            </div>
+                            <div class="flag-item">
+                                <span class="material-icons">check_circle</span>
+                                All utilities available
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Findings Section -->
+            <section id="findings" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">fact_check</span>
+                            Key Findings
+                        </h2>
+                    </div>
+                    
+                    <div class="findings-container">
+                        <div class="ai-summary">
+                            <div class="ai-badge">
+                                <span class="material-icons">auto_awesome</span>
+                                AI Summary
+                            </div>
+                            <p class="summary-text">
+                                Your Salem property shows <strong>strong ADU potential</strong> with excellent site characteristics and favorable zoning. 
+                                The R-2 district allows ADUs by-right, eliminating permitting complexity. With gentle slopes and good soil conditions, 
+                                construction should be straightforward. Your 7,200 sq ft lot provides multiple placement options while maintaining privacy.
+                            </p>
+                        </div>
+                        
+                        <div class="findings-grid">
+                            <div class="finding-card positive">
+                                <div class="finding-icon">✅</div>
+                                <div class="finding-content">
+                                    <h3 class="finding-title">Zoning Compliance</h3>
+                                    <p class="finding-text">R-2 district permits ADUs by-right. No special permits or variances required.</p>
+                                    <div class="finding-impact">High Impact</div>
+                                </div>
+                            </div>
+                            
+                            <div class="finding-card positive">
+                                <div class="finding-icon">🏗️</div>
+                                <div class="finding-content">
+                                    <h3 class="finding-title">Site Conditions</h3>
+                                    <p class="finding-text">Ideal lot size, gentle slope, good drainage. Minimal site prep required.</p>
+                                    <div class="finding-impact">High Impact</div>
+                                </div>
+                            </div>
+                            
+                            <div class="finding-card neutral">
+                                <div class="finding-icon">💰</div>
+                                <div class="finding-content">
+                                    <h3 class="finding-title">Cost Analysis</h3>
+                                    <p class="finding-text">Estimated range $180k-$240k places project in typical market range.</p>
+                                    <div class="finding-impact">Medium Impact</div>
+                                </div>
+                            </div>
+                            
+                            <div class="finding-card positive">
+                                <div class="finding-icon">⚡</div>
+                                <div class="finding-content">
+                                    <h3 class="finding-title">Utilities Access</h3>
+                                    <p class="finding-text">All utilities available at property line. Direct connections possible.</p>
+                                    <div class="finding-impact">High Impact</div>
+                                </div>
+                            </div>
+                            
+                            <div class="finding-card caution">
+                                <div class="finding-icon">🌳</div>
+                                <div class="finding-content">
+                                    <h3 class="finding-title">Tree Considerations</h3>
+                                    <p class="finding-text">Two protected oak trees may limit placement options in rear yard.</p>
+                                    <div class="finding-impact">Low Impact</div>
+                                </div>
+                            </div>
+                            
+                            <div class="finding-card positive">
+                                <div class="finding-icon">🎯</div>
+                                <div class="finding-content">
+                                    <h3 class="finding-title">Market Potential</h3>
+                                    <p class="finding-text">Salem rental market strong. $1,800-2,200/month achievable for quality ADU.</p>
+                                    <div class="finding-impact">High Impact</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Tags Section -->
+            <section id="tags" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">label</span>
+                            Project Tags
+                        </h2>
+                    </div>
+                    
+                    <div class="tags-container">
+                        <div class="tag-category">
+                            <h3 class="tag-category-title">Feasibility Status</h3>
+                            <div class="tag-chips">
+                                <span class="tag-chip status-excellent">Excellent Potential</span>
+                                <span class="tag-chip status-byright">By-Right Permitted</span>
+                                <span class="tag-chip status-ready">Site Ready</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tag-category">
+                            <h3 class="tag-category-title">Construction Type</h3>
+                            <div class="tag-chips">
+                                <span class="tag-chip construction-detached active">Detached ADU</span>
+                                <span class="tag-chip construction-standard">Standard Foundation</span>
+                                <span class="tag-chip construction-wood">Wood Frame</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tag-category">
+                            <h3 class="tag-category-title">Market Characteristics</h3>
+                            <div class="tag-chips">
+                                <span class="tag-chip market-urban">Urban Location</span>
+                                <span class="tag-chip market-transit">Near Transit</span>
+                                <span class="tag-chip market-rental">Strong Rental</span>
+                                <span class="tag-chip market-schools">Good Schools</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tag-category">
+                            <h3 class="tag-category-title">Site Features</h3>
+                            <div class="tag-chips">
+                                <span class="tag-chip site-rectangular">Rectangular Lot</span>
+                                <span class="tag-chip site-slope">Gentle Slope</span>
+                                <span class="tag-chip site-access">Street Access</span>
+                                <span class="tag-chip site-utilities">Full Utilities</span>
+                                <span class="tag-chip site-solar">Solar Ready</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tag-category">
+                            <h3 class="tag-category-title">Considerations</h3>
+                            <div class="tag-chips">
+                                <span class="tag-chip consideration-trees">Protected Trees</span>
+                                <span class="tag-chip consideration-privacy">Privacy Planning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Report Metadata Section -->
+            <section id="metadata" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">description</span>
+                            Report Metadata
+                        </h2>
+                    </div>
+                    
+                    <div class="metadata-grid">
+                        <div class="metadata-section">
+                            <h3 class="metadata-title">Report Information</h3>
+                            <div class="metadata-items">
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Report Type</span>
+                                    <span class="metadata-value">Tier 3 Project Navigator</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Generated</span>
+                                    <span class="metadata-value">January 15, 2025 at 2:45 PM</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Version</span>
+                                    <span class="metadata-value">v2.1.0</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Expires</span>
+                                    <span class="metadata-value">April 15, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="metadata-section">
+                            <h3 class="metadata-title">Data Sources</h3>
+                            <div class="metadata-items">
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Zoning Data</span>
+                                    <span class="metadata-value">Salem Planning Dept (Dec 2024)</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Property Records</span>
+                                    <span class="metadata-value">Essex County Registry</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Market Data</span>
+                                    <span class="metadata-value">MLS & Rental Listings</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Cost Database</span>
+                                    <span class="metadata-value">RSMeans 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="metadata-section">
+                            <h3 class="metadata-title">Quality Metrics</h3>
+                            <div class="metadata-items">
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Data Confidence</span>
+                                    <span class="metadata-value confidence-high">94% High</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Coverage Score</span>
+                                    <span class="metadata-value">9/9 Categories Complete</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Analysis Depth</span>
+                                    <span class="metadata-value">Tier 3 - Comprehensive</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Validation Status</span>
+                                    <span class="metadata-value status-verified">✓ Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="metadata-section">
+                            <h3 class="metadata-title">Usage & Export</h3>
+                            <div class="metadata-actions">
+                                <button class="metadata-btn">
+                                    <span class="material-icons">download</span>
+                                    Export PDF
+                                </button>
+                                <button class="metadata-btn">
+                                    <span class="material-icons">share</span>
+                                    Share Report
+                                </button>
+                                <button class="metadata-btn">
+                                    <span class="material-icons">refresh</span>
+                                    Update Data
+                                </button>
+                                <button class="metadata-btn">
+                                    <span class="material-icons">archive</span>
+                                    Archive
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Snapshot Map Section -->
+            <section id="map" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">map</span>
+                            Interactive Site Map
+                        </h2>
+                    </div>
+                    
+                    <div class="interactive-map-container">
+                        <div class="map-controls">
+                            <div class="map-layers">
+                                <button class="layer-btn active" data-layer="satellite">
+                                    <span class="material-icons">satellite</span>
+                                    Satellite
+                                </button>
+                                <button class="layer-btn" data-layer="zoning">
+                                    <span class="material-icons">account_balance</span>
+                                    Zoning
+                                </button>
+                                <button class="layer-btn" data-layer="utilities">
+                                    <span class="material-icons">power</span>
+                                    Utilities
+                                </button>
+                                <button class="layer-btn" data-layer="flood">
+                                    <span class="material-icons">water</span>
+                                    Flood Zone
+                                </button>
+                            </div>
+                            
+                            <div class="map-tools">
+                                <button class="tool-btn" data-tool="measure">
+                                    <span class="material-icons">straighten</span>
+                                    Measure
+                                </button>
+                                <button class="tool-btn" data-tool="placement">
+                                    <span class="material-icons">home</span>
+                                    ADU Placement
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="map-display">
+                            <div class="property-boundary">
+                                <div class="property-label">7,200 sq ft</div>
+                                <div class="existing-house">
+                                    <div class="house-label">Main House</div>
+                                </div>
+                                <div class="adu-placement-options">
+                                    <div class="adu-option recommended" data-placement="rear">
+                                        <span class="placement-label">Recommended</span>
+                                    </div>
+                                    <div class="adu-option" data-placement="side">
+                                        <span class="placement-label">Alternative</span>
+                                    </div>
+                                </div>
+                                <div class="setback-lines">
+                                    <div class="setback-label">15' Rear Setback</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="map-info-panel">
+                            <div class="map-stats">
+                                <div class="map-stat">
+                                    <span class="stat-label">Buildable Area</span>
+                                    <span class="stat-value">4,200 sq ft</span>
+                                </div>
+                                <div class="map-stat">
+                                    <span class="stat-label">Max ADU Size</span>
+                                    <span class="stat-value">900 sq ft</span>
+                                </div>
+                                <div class="map-stat">
+                                    <span class="stat-label">Distance to Street</span>
+                                    <span class="stat-value">120 feet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Navigator Section -->
+            <section id="navigator" class="report-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="material-icons">explore</span>
+                            Report Navigator
+                        </h2>
+                    </div>
+                    
+                    <div class="navigator-container">
+                        <p class="navigator-intro">
+                            Explore all aspects of your ADU project with our comprehensive analysis. 
+                            Click any category to dive deeper into specific areas.
+                        </p>
+                        
+                        <div class="category-preview-grid">
+                            <div class="category-preview-card" data-category="financial">
+                                <div class="preview-icon">💰</div>
+                                <div class="preview-content">
+                                    <h3 class="preview-title">Financial Analysis</h3>
+                                    <p class="preview-description">Cost estimates, funding options, ROI projections</p>
+                                    <div class="preview-highlights">
+                                        <span class="highlight">$180k-$240k range</span>
+                                        <span class="highlight">7-year payback</span>
+                                    </div>
+                                </div>
+                                <button class="preview-btn">
+                                    <span class="material-icons">arrow_forward</span>
+                                </button>
+                            </div>
+                            
+                            <div class="category-preview-card" data-category="zoning">
+                                <div class="preview-icon">🏛️</div>
+                                <div class="preview-content">
+                                    <h3 class="preview-title">Zoning & Permits</h3>
+                                    <p class="preview-description">Regulations, setbacks, permit requirements</p>
+                                    <div class="preview-highlights">
+                                        <span class="highlight">By-right permitted</span>
+                                        <span class="highlight">R-2 district</span>
+                                    </div>
+                                </div>
+                                <button class="preview-btn">
+                                    <span class="material-icons">arrow_forward</span>
+                                </button>
+                            </div>
+                            
+                            <div class="category-preview-card" data-category="site">
+                                <div class="preview-icon">🏞️</div>
+                                <div class="preview-content">
+                                    <h3 class="preview-title">Site Analysis</h3>
+                                    <p class="preview-description">Property characteristics, utilities, placement</p>
+                                    <div class="preview-highlights">
+                                        <span class="highlight">Ideal conditions</span>
+                                        <span class="highlight">Full utilities</span>
+                                    </div>
+                                </div>
+                                <button class="preview-btn">
+                                    <span class="material-icons">arrow_forward</span>
+                                </button>
+                            </div>
+                            
+                            <div class="category-preview-card" data-category="design">
+                                <div class="preview-icon">🏗️</div>
+                                <div class="preview-content">
+                                    <h3 class="preview-title">Design Options</h3>
+                                    <p class="preview-description">Massing concepts, layouts, styles, materials</p>
+                                    <div class="preview-highlights">
+                                        <span class="highlight">3 massing options</span>
+                                        <span class="highlight">850 sq ft</span>
+                                    </div>
+                                </div>
+                                <button class="preview-btn">
+                                    <span class="material-icons">arrow_forward</span>
+                                </button>
+                            </div>
+                            
+                            <div class="category-preview-card" data-category="timeline">
+                                <div class="preview-icon">📅</div>
+                                <div class="preview-content">
+                                    <h3 class="preview-title">Project Timeline</h3>
+                                    <p class="preview-description">Phases, milestones, critical path analysis</p>
+                                    <div class="preview-highlights">
+                                        <span class="highlight">7-12 months</span>
+                                        <span class="highlight">5 phases</span>
+                                    </div>
+                                </div>
+                                <button class="preview-btn">
+                                    <span class="material-icons">arrow_forward</span>
+                                </button>
+                            </div>
+                            
+                            <div class="category-preview-card" data-category="goals">
+                                <div class="preview-icon">🎯</div>
+                                <div class="preview-content">
+                                    <h3 class="preview-title">Project Goals</h3>
+                                    <p class="preview-description">Your vision, priorities, success metrics</p>
+                                    <div class="preview-highlights">
+                                        <span class="highlight">Rental income</span>
+                                        <span class="highlight">Family housing</span>
+                                    </div>
+                                </div>
+                                <button class="preview-btn">
+                                    <span class="material-icons">arrow_forward</span>
+                                </button>
+                            </div>
+                            
+                            <div class="category-preview-card" data-category="impact">
+                                <div class="preview-icon">🌟</div>
+                                <div class="preview-content">
+                                    <h3 class="preview-title">Impact Analysis</h3>
+                                    <p class="preview-description">Benefits, risks, long-term value creation</p>
+                                    <div class="preview-highlights">
+                                        <span class="highlight">+$85k equity</span>
+                                        <span class="highlight">Low risk</span>
+                                    </div>
+                                </div>
+                                <button class="preview-btn">
+                                    <span class="material-icons">arrow_forward</span>
+                                </button>
+                            </div>
+                            
+                            <div class="category-preview-card" data-category="next">
+                                <div class="preview-icon">🚀</div>
+                                <div class="preview-content">
+                                    <h3 class="preview-title">Next Steps</h3>
+                                    <p class="preview-description">Action plan, team matching, resources</p>
+                                    <div class="preview-highlights">
+                                        <span class="highlight">12 action items</span>
+                                        <span class="highlight">Builder match</span>
+                                    </div>
+                                </div>
+                                <button class="preview-btn">
+                                    <span class="material-icons">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="navigator-footer">
+                            <div class="progress-indicator">
+                                <span class="progress-text">Report Progress</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%;"></div>
+                                </div>
+                                <span class="progress-value">9/9 Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-navigation">
+        <button class="bottom-nav-btn disabled" onclick="switchCategory('summary', 'prev')">
+            <span class="material-icons">arrow_back</span>
+            Previous Category
+        </button>
+        <button class="bottom-nav-btn center" onclick="scrollToTop()">
+            <span class="material-icons">arrow_upward</span>
+            Back to Top
+        </button>
+        <button class="bottom-nav-btn" onclick="switchCategory('financial', 'next')">
+            Next Category
+            <span class="material-icons">arrow_forward</span>
+        </button>
+    </div>
+</div>
